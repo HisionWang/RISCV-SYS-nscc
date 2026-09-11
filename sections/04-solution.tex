@@ -1,0 +1,263 @@
+\section{实现方案}
+\subsection{作品简介}
+本方案构建\RuntimeName{}：开发者在主机端描述模型、准备权重，转换器生成算子顺序和内存计划；
+板上运行时调用\ProcessorCore{}标量、\VectorUnit{}向量或\AcceleratorName{}矩阵后端，输出带样本标识的结果及逐层记录。
+模型训练和量化准备在主机完成，嵌入式端专注推理。
+
+作品由可重构计算平台及配套软件组成，首个验证对象为\AIModel{}，随后扩展视觉与智能感知应用。
+本章依据\TechnicalBaseline{}描述设计；\BoardModel{}是现有资源，联合硬件、系统适配与推理程序按后述路径研发和验证。
+
+\subsection{技术方案}
+\subsubsection{系统分层与数据流}
+系统按模型准备、部署转换、运行调度、算子执行和设备接入分层。模型与设备之间以张量为接口，运行时与操作系统之间以平台适配层为接口。
+这样的组织方式使开发者增加算子时能够先建立数值语义，再实现后端；增加设备时则只需接入输入输出适配器。
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=5mm,
+ box/.style={draw=Rule,fill=Panel,rounded corners=1mm,align=center,font=\small,minimum height=12mm,text width=11.8cm},
+ backend/.style={box,text width=3.5cm,minimum height=17mm},
+ arr/.style={-{Latex[length=2mm]},draw=Accent,thick}]
+\node[box] (model) {主机：模型、权重与算子描述\\静态形状、布局、数据类型、预处理与量化定义};
+\node[box,below=of model] (convert) {受限模型转换器\\合法性检查 → 后端选择 → 内存与执行计划};
+\node[box,below=of convert] (package) {部署包：程序、权重、清单与参考结果\\记录模型版本、算子版本和硬件参数};
+\node[box,below=of package] (runtime) {板上：轻量推理运行时\\\RealTimeSystem{} 或 \LinuxDistribution{}；经适配层读入张量、输出结果};
+\node[backend,below=10mm of runtime] (rvv) {\VectorUnit{} RVV 后端\\逐元素与数据整理};
+\node[backend,left=4mm of rvv] (scalar) {\ProcessorCore{}标量后端\\控制与已注册算子};
+\node[backend,right=4mm of rvv] (npu) {\AcceleratorName{} NPU 后端\\矩阵乘与数据搬运};
+\draw[arr] (model)--(convert);
+\draw[arr] (convert)--(package);
+\draw[arr] (package)--(runtime);
+\draw[arr] (runtime.south)--(rvv.north);
+\draw[arr] (runtime.south) -- ++(0,-4mm) -| (scalar.north);
+\draw[arr] (runtime.south) -- ++(0,-4mm) -| (npu.north);
+\end{tikzpicture}
+\caption{拟设计的软件体系与部署数据流}
+\label{fig:software}
+\end{figure}
+
+输入适配器首先支持串口接收测试张量或静态图像，输出适配器回传类别、样本标识与诊断记录。
+后续摄像头、传感器及外部中心沿用相同数据边界，但需要分别实现设备驱动、预处理及通信协议。
+首期串口回放为计算链验证提供稳定输入，不承担实时采集功能。
+
+\subsubsection{硬件计算组织}
+硬件采用\IntegrationFramework{}统一组织\ProcessorCore{}、\VectorUnit{}和\AcceleratorName{}，
+由\MemoryController{}连接板上 DDR3。选用同一生态内已有连接基础的组件，可以将研发重点放在统一配置、板级适配和软件开发体系上。\cite{rocket,saturn,gemmini,chipyard,litedram}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+ box/.style={draw=Rule,fill=Panel,rounded corners=1mm,align=center,font=\small,minimum height=15mm,text width=3.35cm},
+ arr/.style={-{Latex[length=2mm]},draw=Accent,thick}]
+\node[box] (cpu) at (0,0) {\ProcessorCore{} 单核 CPU\\控制、操作系统、调度};
+\node[box] (vec) at (-4.5,0) {\VectorUnit{} 向量单元\\RVV 指令执行};
+\node[box] (gem) at (4.5,0) {\AcceleratorName{} 矩阵单元\\RoCC 命令、DMA};
+\node[box,text width=12.2cm,minimum height=12mm] (fabric) at (0,-2.1) {统一缓存／地址翻译／一致性互连与内存访问体系};
+\node[box,text width=6.2cm] (dram) at (-2.7,-4.1) {\MemoryController{} 控制器与 PHY\\板上 DDR3：\MemoryCapacity{} 标称容量};
+\node[box,text width=4.5cm] (io) at (3.7,-4.1) {片上 ROM/BRAM、UART\\启动与基础输入输出};
+\draw[arr] (cpu.west)--node[above,font=\scriptsize]{向量通路}(vec.east);
+\draw[arr] (cpu.east)--node[above,font=\scriptsize]{RoCC}(gem.west);
+\draw[arr] (cpu.south)--(fabric.north);
+\draw[arr] (vec.south)--(vec.south|-fabric.north);
+\draw[arr] (gem.south)--node[right,font=\scriptsize]{DMA}(gem.south|-fabric.north);
+\draw[arr] (fabric.south -| dram.north)--(dram.north);
+\draw[arr] (fabric.south -| io.north)--(io.north);
+\end{tikzpicture}
+\caption{拟设计的硬件逻辑关系；地址翻译与一致性连接仍需联合适配}
+\label{fig:hardware}
+\end{figure}
+
+\VectorUnit{}负责标准 RVV 指令，\AcceleratorName{}通过 RoCC 自定义指令接收 CPU 提交的任务。
+二者承担不同计算路径，NPU 调度不依赖向量指令。矩阵加速器的 DMA 必须纳入统一的内存访问与一致性设计，不能绕过该体系另接 DDR 后假定 CPU 缓存自动同步。
+
+\subsection{方案细节}
+\subsubsection{软硬件选型与裁剪原则}
+\ProcessorCore{}单独不提供标准 RVV，向量能力由\VectorUnit{}补充。
+其中 VLEN 表示向量寄存器宽度，DLEN 表示执行数据通路宽度，二者不能等同为每拍完成的运算数量。
+即使模型采用整数推理，当前\VectorUnit{}配置所需的标量 FPU 仍应保留；运行\LinuxDistribution{}所需的 MMU 同样不能随意删除。
+
+\par{\small\renewcommand{\arraystretch}{1.2}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.20\linewidth}YP{.27\linewidth}@{}}
+\toprule
+部件 & 本方案采用的配置与职责 & 选型理由及约束\\
+\midrule
+\ProcessorCore{} & 单核通用处理器，保留 MMU 与标量 FPU & 兼顾系统运行、向量连接和 RoCC 调度\\
+\VectorUnit{} & \VectorConfig{} 配置，VLEN \VectorLength{}、DLEN \VectorDataWidth{} & 降低初始并行度；仍按完整应用级 RVV 设计\\
+\AcceleratorName{} & \ModelDataType{} 输入、\ModelAccumulatorType{} 累加；阵列候选为\AcceleratorArrayCandidates{} & 复用矩阵阵列、暂存区、DMA 与 C 接口；尺寸待资源检查\\
+\IntegrationFramework{} & \IntegrationVersion{} 及其配套依赖 & 集中管理 SoC 参数与硬件生成\\
+\MemoryController{} & DDR3 控制器与 PHY & 存在 Kintex-7 开源基础，需本板约束与初始化适配\\
+\RealTimeSystem{} / \LinuxDistribution{} & 分别构建启动镜像和推理程序 & 以平台适配层复用算子核心\\
+\bottomrule
+\end{tabularx}\par}
+
+
+
+\IntegrationFramework{}提供组件组织机制，并不等于已有适配本板的完整工程。
+实施时需要生成一份统一配置，检查时钟、复位、缓存、总线和外设地址，而不是简单叠加两份完整上游示例配置。
+硬件设计 IP 与推理软件采用开放许可证；FPGA 综合与实现使用团队现有的\FPGATool{}工具，许可证按来源和子模块分别管理。
+
+\subsubsection{统一算子描述与后端选择}
+算子接口以可验证的语义为起点。每个算子描述记录名称、输入输出形状、数据布局、数据类型、步长、量化尺度与舍入规则，
+并声明支持该算子的后端及其限制。RVV 寄存器类型保留在后端实现内部，对外接口使用普通 C 指针和张量元数据，减少操作系统和编译器细节向上层扩散。
+
+受限转换器首先拒绝动态形状、未注册算子和不合法量化组合，再确定每一步调用的实现。
+首期采用可解释的规则分配：符合输入精度和尺寸约束的矩阵乘优先选择 NPU，逐元素运算和适合向量化的数据整理选择 RVV，
+其余计算只能回退到已经注册并通过对照测试的标量实现。后续再依据真实计时数据调整选择策略。
+
+\par{\small\renewcommand{\arraystretch}{1.2}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.18\linewidth}YY@{}}
+\toprule
+接口边界 & 主要信息 & 应发现的问题\\
+\midrule
+模型 → 转换器 & 形状、布局、预处理、权重、量化参数 & 不支持算子、维度冲突、尺度缺失\\
+转换器 → 运行时 & 调用顺序、后端、缓冲区偏移、工作区及版本 & 内存重叠、容量不足、参数版本不一致\\
+运行时 → 算子 & 指针、形状、步长、参数和错误状态 & 越界、非法布局、未注册回退\\
+运行时 → NPU & 缓冲区、提交与完成、翻译与所有权状态 & 在途任务复用内存、地址失效、未完成读取\\
+硬件 → 软件 & \NpuParameterHeader{}、地址图、ISA、时钟、设备树 & 软件默认值与裁剪后硬件不一致\\
+\bottomrule
+\end{tabularx}\par}
+
+算子开发流程由“描述语义—实现独立参考—实现后端—注册能力—生成测试—加入模型”组成。
+运行时统一记录失败所在算子、输入形状、后端和错误码，使新增算子的验证能够在完整模型部署前完成。
+不支持的路径应在转换阶段被明确指出，避免部署后才出现不可解释的执行失败。
+
+\subsubsection{静态执行计划与内存管理}
+转换器在主机端分析张量生命周期，为权重、输入、输出和临时工作区分配存储位置。
+生命周期不重叠的中间张量可以复用缓冲区；与 NPU 搬运或计算关联的缓冲区必须保持有效，直到完成确认后才允许重用。
+首期使用固定形状和串行执行降低运行时动态分配需求。
+
+部署清单记录模型标识、算子库版本、量化规则、硬件参数摘要及所需存储大小。
+程序启动时核对清单与本机配置，初始化后端，并检查输入尺寸和模型资源。
+推理结束后，结果记录附带样本标识、执行路径及检查状态，以便将主机参考与板上结果一一对应。
+
+该机制为后续优化提供可比较基线。算子融合、分块和搬运调度只有在中间结果语义保持一致的条件下才加入；
+不同优化版本使用相同输入与参考结果，分别统计计算和搬运开销，避免仅凭单个算子的计时推断整个系统收益。
+
+\subsubsection{首个模型算例与量化计算}
+首个可行性算例选取\(\ModelImageHeight\times\ModelImageWidth\)灰度图像输入，
+展平为\ModelInputSize{}个元素，经过\ModelHiddenSize{}个隐藏单元后输出\ModelOutputSize{}个类别分数。
+它的用途是贯通模型、算子、硬件和系统路径，最终应用仍可替换为其他受支持模型。
+
+该网络权重元素数为
+\[
+N_W=\ModelInputSize\times\ModelHiddenSize+\ModelHiddenSize\times\ModelOutputSize=\ModelWeightCount.
+\]
+以\ModelDataType{}存储约占\ModelWeightKiB~KiB；
+\ModelBiasCount{}个\ModelAccumulatorType{}偏置占\ModelBiasBytes{}字节，此外还需代码、对齐、堆栈和工作区。
+这属于结构核算，不是整套系统的内存实测值。
+
+\par{\small\renewcommand{\arraystretch}{1.2}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.18\linewidth}YP{.28\linewidth}@{}}
+\toprule
+执行步骤 & 输入与输出 & 初始映射\\
+\midrule
+第一层全连接 & \ModelInputSize{}维输入 → \ModelHiddenSize{}维完整累加值 & NPU 矩阵乘\\
+偏置、激活与重定标 & 加偏置，执行\ModelActivation{}，饱和到量化范围 & 标量或 RVV\\
+第二层全连接 & \ModelHiddenSize{}维输入 → \ModelOutputSize{}维完整累加值 & NPU 矩阵乘\\
+偏置与类别选择 & 同尺度类别分数 → 类别编号 & 标量或 RVV；\ModelOutputOperation{}\\
+\bottomrule
+\end{tabularx}\par}
+
+首期量化采用\ModelQuantization{}。设整数输入为 \(q_{x,j}\)、权重为 \(q_{w,ij}\)，
+第一层隐藏层中，与累加尺度一致的偏置为 \(q_{b,i}\)（其量化单位为该层输入尺度与权重尺度之积），则
+\[
+a_i=\sum_j q_{w,ij}q_{x,j}+q_{b,i},\qquad
+q_{y,i}=\operatorname{sat}_{[-128,127]}
+\left(\operatorname{round}\!\left(\frac{s_xs_w}{s_y}\max(0,a_i)\right)\right).
+\]
+上述激活与重定标公式用于第一层隐藏层；第二层保留加偏置后的完整类别分数，直接进行\ModelOutputOperation{}，不应用该激活和 INT8 饱和步骤。
+转换器需同时确定舍入方式与定点重定标实现，使参考代码与各后端采用一致规则。
+若未来引入非零零点或逐通道尺度，应同步增加修正项及接口，不能直接套用当前计算式。
+
+NPU 回读\ModelAccumulatorType{}完整累加值，再由 CPU/RVV 处理偏置和重定标。
+独立参考以\ReferenceAccumulatorType{}累加并检查范围，避免参考与设备发生相同的溢出。
+最终各类别共享相同正比例尺度时可直接使用\ModelOutputOperation{}，无需额外引入 Softmax；输出分数不解释为概率。\cite{gemminilib}
+
+有效模型还需要可使用的已训练权重、固定预处理、校准样本、独立测试集及逐层参考。
+上游全零 MLP 模板可用于接口实验，不能代替有效的识别模型。
+整数后端之间的精确对照，与量化模型相对浮点模型的误差和识别效果，分别评价。
+
+\subsubsection{DDR、片上引导与镜像加载}
+启动链设计为：FPGA 配置完成，片上 ROM/BRAM 引导程序执行，
+初始化和测试 DDR，发布内存可用状态，通过 UART 加载后级镜像，
+由\BootFirmware{}进入目标操作系统，最后启动推理应用。
+
+DDR 可用前，引导程序的代码、栈、常量与可写数据全部驻片上。
+\MemoryController{}采用无辅助 CPU 的控制模式，由\ProcessorCore{}访问控制寄存器完成训练。
+训练和测试必须使用不受普通 ready 门控的专用访问路径，普通 DDR 客户端保持关闭；测试成功后才发布 ready。
+若失败则保留在片上程序并输出诊断，避免出现“训练等待 ready、ready 又等待训练结束”的循环依赖。\cite{litedraminit}
+
+板上\MemoryChipCount{}颗\MemoryPart{}构成同 rank 的\MemoryBusWidth{}位组织，
+对应\MemoryCapacity{}标称容量。\MemoryController{}模块数量参数按字节组计，本组织对应\MemoryByteGroups{}；
+不能把器件颗数直接填入该参数。控制器地址转换、CPU 地址范围和设备树必须一致，
+通过高低地址及边界读写检查地址别名，确认容量没有被高位截断。\cite{board,litedram}
+
+初始化阶段使用不可缓存测试映射，并在切换到普通访问前处理缓存状态。
+串口链路采用实际 UART 驱动，\SerialBridge{}作为 USB 转 UART 桥使用。
+仿真中的主机代理通道不能直接替代物理串口。
+首期\LinuxDistribution{}可以采用\BootFirmware{}携带内核、内核内置精简 initramfs 的启动方式，减少额外启动依赖。
+
+\subsubsection{操作系统适配与推理调用}
+\HybridDeploymentPlan{}。两条路径共用推理核心源码、算子语义和模型描述，
+分别编译各自的程序与平台适配层；根据最终硬件配置需要，启动包可包含不同 FPGA 配置。
+切换通过重启和加载相应镜像完成，不要求两个系统同时驻留。
+
+\RealTimeSystem{}采用 RV64 S 模式与\BootFirmware{}衔接，参考\RealTimeSystemVersion{}的 BSP 与向量上下文代码，
+完成本板串口、中断、定时器、链接脚本和内存图适配。
+\LinuxDistribution{}基于\LinuxKernelVersion{}核查基线，保留 MMU、内核所需启动约束和用户向量支持。
+两个系统都需要独立执行向量上下文、中断及线程切换测试，系统能启动不能替代算子能正确运行的证明。\cite{rtthread,linux}
+
+工具链选择\Toolchain{}，版本为\ToolchainVersion{}。
+RVV 算子文件使用 \texttt{\RvvCompileISA{}} 目标，标量及不需要向量的部分按各自配置构建。
+应检查反汇编中实际生成的向量指令，再通过运行确认；只升级编译器或沿用 \texttt{\ScalarCompileISA{}} 示例参数不会自动获得向量执行。\cite{gcc,rvv}
+
+\AcceleratorName{}首期采用单所有者、稳定缓冲区、串行提交和完成等待的受控调用方式。
+页驻留、NPU 翻译刷新、CPU 缓存一致性和任务独占分别处理；
+若抢占或地址空间切换无法保证在途请求稳定，需要增加受控内核工作线程或调度适配。
+上游用户态 C 库为调用基础，不直接作为通用多进程共享驱动。\cite{gemminilib}
+
+\subsection{命题响应效果}
+\subsubsection{验证顺序与通过条件}
+方案验证从数值语义向整机运行逐步展开，先保证每一层结果可以解释，再比较效率。
+每一阶段保留输入、配置、版本及输出记录，使后续问题能够定位到模型、后端、存储或系统适配层。
+
+\par{\small\renewcommand{\arraystretch}{1.2}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.19\linewidth}YP{.32\linewidth}@{}}
+\toprule
+验证阶段 & 核心检查 & 通过条件／输出证据\\
+\midrule
+主机模型 & 模型许可、预处理、量化、独立参考 & 固定样本与逐层期望结果\\
+单算子 & 标量、RVV、NPU 对照，覆盖非整块尺寸、偏置、饱和及舍入 & 整数结果逐元素一致；误差定位到算子\\
+联合 RTL & 统一配置生成、中断、内存访问及三后端功能 & \SimulationTool{}仿真记录与错误复现用例\\
+FPGA 实现 & LUT、寄存器、DSP、BRAM 与实际时钟约束 & \FPGATool{}资源报告和布局布线时序通过\\
+板级启动 & UART、DDR 训练、边界地址和镜像加载 & 可重复启动记录与内存测试日志\\
+系统推理 & 两系统分别启动、同模型执行、上下文切换及重复推理 & 输入到结果全链路对照\\
+\bottomrule
+\end{tabularx}\par}
+
+目标 FPGA 的资源上限为\FPGALutLimit{}个 LUT、\FPGARegisterLimit{}个寄存器、
+\FPGADspLimit{}个 DSP 和\FPGABramLimit{}个 36 Kbit BRAM。
+联合配置以综合及布局布线结果判断；资源不足时调整阵列、缓存和存储映射，保留必要的 MMU 与向量依赖。\cite{amd}
+
+\subsubsection{效果评价与需求闭合}
+首轮目标是使同一合法模型在受支持后端和两种系统中取得一致结果。
+小型单样本模型用于检查链路，NPU 的启动与搬运开销可能影响收益。
+效率比较固定模型、输入、量化、硬件与计时边界，分别记录计算、搬运及端到端耗时。
+
+\par{\small\renewcommand{\arraystretch}{1.2}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.18\linewidth}YY@{}}
+\toprule
+评价项 & 当前目标口径 & 验证方法\\
+\midrule
+数值正确性 & \TargetAccuracy & \AccuracyVerificationMethod\\
+资源与时序 & \TargetResourceUse & \ResourceUseVerificationMethod\\
+执行效率 & \TargetLatency & \LatencyVerificationMethod\\
+系统稳定性 & \TargetReliability & 记录线程切换、在途任务和多轮结果\\
+扩展能力 & 逐步加入视觉、感知及数据中心适配 & 使用真实设备和外部接口分别联调\\
+\bottomrule
+\end{tabularx}\par}
+
+视觉采集、传感器输入和数据中心上送按真实接口分别验证；国产芯片落地依据单独归档。
+
+\subsection{命题企业对方案评价}
+\CompanyFeedback{}。

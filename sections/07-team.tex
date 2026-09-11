@@ -1,0 +1,27 @@
+\section{团队介绍}
+\subsection{团队成员}
+
+团队共有\TeamSize{}名参赛成员，指导教师为\AdvisorName{}，项目负责人为\TeamLeader{}。成员姓名与最终职责将在团队确认后补充。团队已有\TeamKnowledgeBasis{}基础，将在本项目中结合具体需求开展系统设计与验证。
+
+现阶段按七类任务域提出岗位建议，供成员结合能力认领。下表列出的是工作组织方案，尚不构成对具体成员的职责分派或贡献认定。
+
+{\small\renewcommand{\arraystretch}{\CompactTableStretch}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.31\linewidth}Y@{}}
+\toprule
+建议岗位 & 主要任务与交付物 \\
+\midrule
+\MemberOneRole & 维护命题响应、版本与阶段安排，整理学校及企业待确认事项。 \\
+\MemberTwoRole & 组织计算单元、互连和DDR接口设计，形成配置、仿真及资源检查记录。 \\
+\MemberThreeRole & 梳理启动链与板级支持，组织两种系统分别构建、启动及上下文测试。 \\
+\MemberFourRole & 维护算子定义、量化约束和独立整数参考，形成逐层对照用例。 \\
+\MemberFiveRole & 研究RVV与NPU调用、数据搬运和参数衔接，完成后端适配及单算子核对。 \\
+\MemberSixRole & 准备合法模型资产和独立测试数据，组织转换、误差与端到端验证。 \\
+\MemberSevenRole & 组织输入输出流程、演示记录和解决方案材料，确保图文与实际状态一致。 \\
+\bottomrule
+\end{tabularx}}
+
+\subsection{团队架构}
+
+团队拟围绕硬件平台、推理软件和验证应用开展协作。硬件接口变更应同步到软件使用的地址图、参数头和启动配置；算子定义变更应同步到转换器、后端与参考测试。每项接口由提出者说明约束，由使用该接口的成员复核，减少各模块单独成立而联合运行不一致的问题。
+
+项目负责人统筹需求、版本和验收，\AdvisorName{}老师指导技术边界、关键方案与阶段复核。成员以设计文档、代码提交、测试记录和问题修复说明记录投入，并通过交叉复核分享知识。角色可依据进展调整，最终贡献按实际交付认定。\cite{reviewrules}

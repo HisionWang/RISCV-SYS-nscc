@@ -1,0 +1,10 @@
+% Windows 本机字体副本仅保留在项目 tmp；无本机副本时回退至 TeX 的 Fandol。
+\IfFileExists{../tmp/latex-tools/fonts/simsun.ttc}{%
+  \setCJKmainfont[Path=../tmp/latex-tools/fonts/,FontIndex=0,AutoFakeBold=2.5,ItalicFont=simkai.ttf]{simsun.ttc}
+  \setCJKsansfont[Path=../tmp/latex-tools/fonts/]{simhei.ttf}
+  \setCJKmonofont[Path=../tmp/latex-tools/fonts/]{simfang.ttf}
+}{%
+  \setCJKmainfont[BoldFont=FandolSong-Bold.otf,ItalicFont=FandolKai-Regular.otf]{FandolSong-Regular.otf}
+  \setCJKsansfont[BoldFont=FandolHei-Bold.otf]{FandolHei-Regular.otf}
+  \setCJKmonofont{FandolFang-Regular.otf}
+}

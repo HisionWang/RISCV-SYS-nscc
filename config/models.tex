@@ -1,0 +1,19 @@
+% 首个验证算例：用于说明方案可行性，不是已训练模型或最终应用。
+\newcommand{\ModelFamily}{MLP}
+\newcommand{\ModelImageWidth}{28}
+\newcommand{\ModelImageHeight}{28}
+\newcommand{\ModelInputSize}{784}
+\newcommand{\ModelHiddenSize}{64}
+\newcommand{\ModelOutputSize}{10}
+\newcommand{\ModelWeightCount}{50,816}
+\newcommand{\ModelWeightKiB}{49.6}
+\newcommand{\ModelBiasCount}{74}
+\newcommand{\ModelBiasBytes}{296}
+\newcommand{\ModelDataType}{INT8}
+\newcommand{\ModelAccumulatorType}{INT32}
+\newcommand{\ReferenceAccumulatorType}{INT64}
+\newcommand{\ModelQuantization}{对称有符号 INT8、每张量量化、零点为 0}
+\newcommand{\ModelActivation}{ReLU}
+\newcommand{\ModelOutputOperation}{ArgMax}
+\newcommand{\ModelDatasetStatus}{数据集、已训练权重及许可待确定}
+\newcommand{\ModelPreprocessingStatus}{缩放、灰度化和数值归一化需与训练流程一致}

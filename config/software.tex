@@ -1,0 +1,47 @@
+% 当前正文配置：依据 TP-0.2；修改需同步受影响的接口与图表。
+\newcommand{\OperatingSystem}{RT-Thread / Linux}
+\newcommand{\OperatingSystemVersion}{按两条启动路径分别管理}
+\newcommand{\RealTimeSystem}{RT-Thread}
+\newcommand{\RealTimeSystemVersion}{v5.2.2}
+\newcommand{\LinuxDistribution}{Linux}
+\newcommand{\LinuxKernelVersion}{6.6.0}
+\newcommand{\LinuxTailoringPlan}{保留启动、调度、内存、串口与推理依赖，采用精简 initramfs}
+\newcommand{\HybridDeploymentPlan}{单系统启动，重启后切换 RT-Thread 或 Linux 镜像}
+\newcommand{\Toolchain}{GCC}
+\newcommand{\ToolchainVersion}{14 系列候选，补丁版本及构建参数待工程锁定}
+\newcommand{\BSPPlan}{移植串口、中断、定时器、内存图、设备树和向量上下文}
+\newcommand{\BootPlan}{片上引导与 DDR 就绪检查后，经 OpenSBI 启动目标系统}
+\newcommand{\InferenceFramework}{\RuntimeName}
+\newcommand{\InferenceFrameworkVersion}{首轮接口设计}
+\newcommand{\AIModel}{\ModelInputSize\,\(\rightarrow\)\,\ModelHiddenSize\,\(\rightarrow\)\,\ModelOutputSize 小型 MLP}
+\newcommand{\AIModelVersion}{可行性算例，非最终应用定稿}
+\newcommand{\AIModelSource}{已训练权重与数据来源待准备}
+\newcommand{\OperatorPlan}{统一算子描述、静态执行计划及标量／RVV／NPU 三后端}
+\newcommand{\DriverPlan}{板级 I/O 驱动、向量上下文与 NPU 受控访问适配}
+\newcommand{\CommunicationStack}{首期串口传输；网络协议待场景与平台明确}
+\newcommand{\VerificationTools}{Verilator 功能仿真、Vivado 资源与时序检查、板级测试}
+\newcommand{\SoftwareRepository}{项目工程仓库待建立}
+\newcommand{\SoftwareLicensePlan}{设计 IP 与推理软件使用开放许可证；保留来源及再分发声明}
+\newcommand{\SoftwareOriginEvidence}{国产 RT-Thread 与国内外开源组件组合，不统一称为国产软件}
+
+\newcommand{\IntegrationFramework}{Chipyard}
+
+\newcommand{\IntegrationVersion}{1.14.0}
+
+\newcommand{\RuntimeName}{统一算子开发与推理运行体系}
+
+\newcommand{\BootFirmware}{OpenSBI}
+
+\newcommand{\BootFirmwareVersion}{1.2}
+
+\newcommand{\SimulationTool}{Verilator}
+
+\newcommand{\FPGATool}{Vivado}
+
+\newcommand{\RvvCompileISA}{rv64gcv}
+
+\newcommand{\ScalarCompileISA}{rv64gc}
+
+\newcommand{\NpuParameterHeader}{gemmini\_params.h}
+
+\newcommand{\ResearchCompiler}{Merlin}

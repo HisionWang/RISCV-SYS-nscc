@@ -1,0 +1,36 @@
+
+% !TeX encoding = UTF-8
+% 交付文档：解决方案。格式参考解决方案模板，旧策划书仅作为内容素材来源。
+\documentclass[UTF8,zihao=-4,fontset=none,a4paper]{ctexart}
+\input{config/config}
+\input{styles/fonts}
+\usepackage{styles/project}
+\begin{document}
+\hypersetup{pageanchor=false}
+\input{styles/cover}
+\pagenumbering{Roman}
+\hypersetup{pageanchor=true}
+\input{sections/00-abstract}
+\clearpage
+{\small\linespread{1.08}\selectfont\setlength{\parskip}{0pt}\tableofcontents}
+\clearpage
+\pagenumbering{arabic}
+\SectionPageBreak
+\input{sections/01-challenge-overview}
+\SectionPageBreak
+\input{sections/02-challenge-analysis}
+\SectionPageBreak
+\input{sections/03-industry-background}
+\SectionPageBreak
+\input{sections/04-solution}
+\SectionPageBreak
+\input{sections/05-technical-innovation}
+\SectionPageBreak
+\input{sections/06-project-application}
+\SectionPageBreak
+\input{sections/07-team}
+\SectionPageBreak
+\input{sections/08-growth-and-education}
+\SectionPageBreak
+\input{sections/09-appendices}
+\end{document}

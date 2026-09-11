@@ -1,0 +1,21 @@
+% 现有资源与最终选型分开记录。
+\section{硬件平台与处理架构}
+\KeyPoint{\StoryThreeTitle}{\StoryThreeQuestion}
+
+\subsection{现有资源与待选配置}
+\noindent\begin{tabularx}{\linewidth}{@{}p{0.24\linewidth}X@{}}
+\toprule
+项目 & 配置或状态 \\
+\midrule
+现有资产 & \ExistingFPGAAsset \\
+候选芯片与板卡 & \ChipModel{}；\BoardModel \\
+FPGA配置 & \FPGAModel \\
+采集器件 & \CameraModel{}；\SensorModel \\
+存储与外部接口 & \StoragePlan{}；\HardwareInterfaces \\
+\bottomrule
+\end{tabularx}
+
+\ContentSlot{选型依据与资源预算}{应比较候选资源对命题、系统功能和开发条件的支持情况；审阅后填写资源需求、接口限制及选择理由。现有资产不等同于已确定的最终平台。}
+
+\subsection{处理架构与硬件连接}
+\FigureSlot{硬件结构与接口图}{应说明处理单元、存储、采集及通信接口的连接与边界；RISC-V实现方式、具体硬件模块及资源配置经审阅后补入。}

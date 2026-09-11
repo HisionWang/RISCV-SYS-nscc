@@ -1,0 +1,57 @@
+\section{实现方案}
+\subsection{作品简介}
+\ContentSlot{系统定位与总体功能}{说明系统的使用对象、预期工作流程、输入输出及拟交付形态。}
+\subsection{技术方案}
+\FigureSlot{系统总体技术方案}{预留总体架构图，表达感知、计算、通信、软件部署及应用之间的关系。}
+\subsection{方案细节}
+\KeyPoint{\StoryThreeTitle}{\StoryThreeQuestion}
+{\small\renewcommand{\arraystretch}{\CompactTableStretch}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.25\linewidth}Y@{}}
+\toprule
+硬件配置项 & 方案配置 \\
+\midrule
+处理器与板卡 & \ChipModel{}；\BoardModel \\
+FPGA & \FPGAModel \\
+采集器件 & \SensorModel{}；\CameraModel \\
+存储与接口 & \StoragePlan{}；\HardwareInterfaces \\
+\bottomrule
+\end{tabularx}}
+\KeyPoint{\StoryFourTitle}{\StoryFourQuestion}
+{\small\renewcommand{\arraystretch}{\CompactTableStretch}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.25\linewidth}Y@{}}
+\toprule
+软件配置项 & 方案配置 \\
+\midrule
+实时系统与Linux & \RealTimeSystem{}；\LinuxDistribution \\
+工具链与板级支持 & \Toolchain{}；\BSPPlan \\
+驱动与推理框架 & \DriverPlan{}；\InferenceFramework \\
+混合部署 & \HybridDeploymentFunction \\
+\bottomrule
+\end{tabularx}}
+\KeyPoint{\StoryFiveTitle}{\StoryFiveQuestion}
+{\small\renewcommand{\arraystretch}{\CompactTableStretch}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.25\linewidth}Y@{}}
+\toprule
+功能配置项 & 方案配置 \\
+\midrule
+传感采集 & \AcquisitionFunction \\
+通信与数据中心 & \CommunicationFunction{}；\MobileDataCenterFunction \\
+视觉与模型推理 & \VisionFunction{}；\InferenceFunction{}；\AIModel \\
+\bottomrule
+\end{tabularx}}
+\subsection{命题响应效果}
+{\small\renewcommand{\arraystretch}{\CompactTableStretch}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.18\linewidth}YY@{}}
+\toprule
+指标 & 目标配置 & 验证方法 \\
+\midrule
+时延 & \TargetLatency & \LatencyVerificationMethod \\
+帧率 & \TargetFrameRate & \FrameRateVerificationMethod \\
+准确性 & \TargetAccuracy & \AccuracyVerificationMethod \\
+功耗与资源 & \TargetPower{}；\TargetResourceUse & \PowerVerificationMethod{}；\ResourceUseVerificationMethod \\
+\bottomrule
+\end{tabularx}}
+\ContentSlot{响应效果与验证依据}{按命题要求对应说明预期响应、评价方法和后续验证记录。}
+\Needspace{7\baselineskip}
+\subsection{命题企业对方案评价}
+\ContentSlot{企业评价}{预留企业对接反馈、意见及相关依据的位置。}

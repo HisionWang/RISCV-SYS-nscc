@@ -1,0 +1,31 @@
+% 指标配置。
+% 这里没有默认性能数字。填写前必须确认指标定义、单位、测试条件与来源。
+% Target 前缀表示待确定的目标，不能改称已测结果；实测数据在获得记录后另行登记。
+\newcommand{\TargetLatency}{基线测试后确定优化目标}
+\newcommand{\TargetFrameRate}{摄像头阶段确定}
+\newcommand{\TargetAccuracy}{整数后端逐元素一致；模型识别效果单独评估}
+\newcommand{\TargetPower}{同配置实测后报告}
+\newcommand{\TargetResourceUse}{满足目标器件资源与布局布线时序约束}
+\newcommand{\TargetCost}{零新增采购预算}
+\newcommand{\TargetSamplingRate}{随传感器场景确定}
+\newcommand{\TargetThroughput}{固定模型与计时边界后测量}
+\newcommand{\TargetCommunicationDelay}{通信适配阶段确定}
+\newcommand{\TargetReliability}{固定输入重复执行，覆盖中断及上下文切换}
+\newcommand{\TargetBootTime}{分别记录两种操作系统的完整启动过程}
+\newcommand{\TargetMemoryUse}{按静态计划、堆栈与系统占用分别统计}
+\newcommand{\TargetStorageUse}{按镜像、权重与程序实际大小统计}
+\newcommand{\TargetModelSize}{\ModelWeightKiB~KiB 权重，另计偏置与运行内存}
+\newcommand{\TargetOperatingConditions}{现有试验箱及最终综合时钟}
+\newcommand{\MetricDefinitions}{区分设计参数、理论核算与实测值}
+\newcommand{\MetricTestConditions}{固定模型、输入、量化、硬件配置、时钟和软件版本}
+\newcommand{\MetricBaseline}{独立标量参考与相同模型的标量执行}
+\newcommand{\MetricAcceptanceMethod}{逐层对照、联合仿真、板级测试和可复现记录}
+\newcommand{\MetricEvidenceLocation}{后续工程验证目录}
+
+% 验证方法、口径与条件，和目标数值分别填写。
+\newcommand{\LatencyVerificationMethod}{分别记录端到端、计算、搬运时间，重复测量}
+\newcommand{\FrameRateVerificationMethod}{统一输入分辨率与模型，区分采集率和推理率}
+\newcommand{\AccuracyVerificationMethod}{独立 INT64 参考检查溢出；整数逐层对照}
+\newcommand{\PowerVerificationMethod}{注明测量位置、板上外设与空闲状态}
+\newcommand{\ResourceUseVerificationMethod}{记录 LUT、寄存器、DSP、BRAM 和时序余量}
+\newcommand{\CostVerificationMethod}{按现有资产与新增支出分开登记}

@@ -1,0 +1,68 @@
+\section*{附件}
+\phantomsection\addcontentsline{toc}{section}{附件}
+\subsection*{资料与交付索引}
+\par{\small\renewcommand{\arraystretch}{1.2}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.23\linewidth}YP{.23\linewidth}@{}}
+\toprule
+资料类别 & 内容与用途 & 当前状态\\
+\midrule
+命题与评审依据 & 题面原文、企业命题组评审要求及校赛通知 & 已归档；作为需求与材料组织依据\\
+格式参考 & \SourceFormatName{} & 仅参考解决方案章节及层级\\
+技术基线 & \SourceTechnicalReportName{}（\TechnicalBaseline{}） & 已形成选型与可行性核查\\
+板卡资料 & \SourceBoardName{}、\SourceBoardPinName{}及资源清单 & 已归档；供板级适配使用\\
+方案设计 & 本文总体架构、数据流、算子接口和验证路径 & 本版设计稿\\
+工程与验证 & SoC 配置、BSP、模型资产、算子库与测试日志 & 后续按实施阶段形成\\
+企业意见与成果 & 对接记录、正式评价、个人贡献与成果证明 & 随实际取得的资料补充\\
+\bottomrule
+\end{tabularx}\par}
+
+往年项目策划书用于参考问题讲述和内容组织，其项目数据、成员身份及成果不转入本方案。
+本版按解决方案组织正文，技术依据统一采用\TechnicalBaseline{}；历史选型不作为当前配置输入。
+
+\subsection*{关键版本记录}
+以下为来源核查基线。工程实施时仍需锁定完整依赖、构建参数与板级约束，
+并使生成的\NpuParameterHeader{}、设备树和软件构建参数与最终硬件配置一致。
+
+\par{\small\renewcommand{\arraystretch}{1.15}
+\noindent\begin{tabularx}{\linewidth}{@{}P{.27\linewidth}Y@{}}
+\toprule
+组件 & 版本或提交\\
+\midrule
+\IntegrationFramework{} & \IntegrationVersion{}\\
+\ProcessorCore{} & \texttt{\RocketRevision{}}\\
+\VectorUnit{} & \texttt{\SaturnRevision{}}\\
+\AcceleratorName{} & \texttt{\GemminiRevision{}}\\
+\AcceleratorName{} C 库 & \texttt{\GemminiLibraryRevision{}}\\
+\MemoryController{} & \texttt{\LiteDRAMRevision{}}\\
+\RealTimeSystem{} & \RealTimeSystemVersion{}\\
+\LinuxDistribution{} & \LinuxKernelVersion{}；\texttt{\LinuxRevision{}}\\
+\BootFirmware{} & \BootFirmwareVersion{}；\texttt{\OpenSBIRevision{}}\\
+FireMarshal & \texttt{\FireMarshalRevision{}}\\
+TestChipIP & \texttt{\TestChipIPRevision{}}\\
+\bottomrule
+\end{tabularx}\par}
+
+\clearpage
+\renewcommand{\refname}{参考资料}
+\begin{thebibliography}{99}
+\small
+\setlength{\itemsep}{.35em}
+\bibitem{challenge} \ChallengeCompany{}．\SourceChallengeName{}．赛事命题材料，命题编号\ChallengeIdentifier{}；原文见第二章。
+\bibitem{reviewrules} 大赛评审文件．\SourceRulesName{}．企业命题组评审部分，PDF 第15—16页。
+\bibitem{technicalreport} 团队技术选型资料．\SourceTechnicalReportName{}，\TechnicalBaseline{}，\TechnicalBaselineDate{}．本项目技术资料目录。
+\bibitem{board} 板卡原始资料．\SourceBoardName{}、\SourceBoardPinName{}．本项目“竞业达板卡资料”目录。
+\bibitem{chipyard} UC Berkeley．\IntegrationFramework{} \IntegrationVersion{}．\href{\SourceChipyardURL}{固定版本仓库与依赖配置}。
+\bibitem{rocket} CHIPS Alliance．\ProcessorCore{} Chip：RocketTile．\href{\SourceRocketURL}{向量、RoCC 与缓存连接源码}。
+\bibitem{saturn} UC Berkeley．\VectorUnit{} Vector Unit．\href{\SourceSaturnURL}{固定版本说明与配置}。
+\bibitem{gemmini} UC Berkeley．\AcceleratorName{}．\href{\SourceGemminiURL}{矩阵加速器结构与接口说明}。
+\bibitem{gemminilib} UC Berkeley．\AcceleratorName{} C API．\href{\SourceGemminiLibraryURL}{固定版本 gemmini.h}。
+\bibitem{litedram} EnjoyDigital．\MemoryController{}．\href{\SourceLiteDRAMURL}{DDR 颗粒定义与参数}。
+\bibitem{litedraminit} EnjoyDigital．\MemoryController{} Generator．\href{\SourceLiteDRAMInitURL}{初始化状态与用户端口门控源码}。
+\bibitem{rtthread} RT-Thread．\RealTimeSystemVersion{}．\href{\SourceRTThreadURL}{RV64 参考 BSP}；\href{\SourceRTVectorURL}{RVV 1.0 上下文源码}。
+\bibitem{linux} Linux Kernel Documentation．\href{\SourceLinuxBootURL}{RISC-V Kernel Boot Requirements and Constraints}；\href{\SourceLinuxVectorURL}{Vector Extension Support for RISC-V Linux}．滚动文档，访问日期：\TechnicalBaselineDate{}。
+\bibitem{gcc} GNU．\href{\SourceGCCURL}{GCC 14 Release Series—Changes, New Features, and Fixes}。
+\bibitem{rvv} RISC-V．\href{\SourceRVVURL}{RISC-V Vector C Intrinsic Specification}。
+\bibitem{merlin} UC Berkeley．\ResearchCompiler{}．\href{\SourceMerlinURL}{项目说明与算子映射研究}。
+\bibitem{amd} AMD．\href{\SourceAMDURL}{7 Series FPGAs Data Sheet: Overview（DS180）}。
+\end{thebibliography}
+\noindent{\small 来源核查日期：\SourceReviewDate{}。上游示例、其他板卡配置与论文实验仅作为设计依据。}

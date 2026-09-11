@@ -1,0 +1,22 @@
+% 本节仅保留功能讲述框架。
+\section{感知通信与视觉推理}
+\KeyPoint{\StoryFiveTitle}{\StoryFiveQuestion}
+
+\subsection{功能边界与输入输出}
+\noindent\begin{tabularx}{\linewidth}{@{}p{0.24\linewidth}X@{}}
+\toprule
+功能 & 配置或状态 \\
+\midrule
+数据采集 & \AcquisitionFunction \\
+通信 & \CommunicationFunction \\
+移动数据中心 & \MobileDataCenterFunction \\
+视觉处理 & \VisionFunction \\
+智能推理 & \InferenceFunction \\
+模型 & \AIModel \\
+\bottomrule
+\end{tabularx}
+
+\subsection{任务链路与数据组织}
+\FigureSlot{感知与推理任务流程图}{应串联数据来源、处理步骤、通信或存储、推理结果及使用方式，标清模块输入输出。模型、算法和执行位置不提前填写。}
+
+\ContentSlot{功能说明与异常处理}{应逐项说明功能目的、输入条件、输出形式、任务关系与验证场景；同时说明数据缺失、通信异常或处理失败时需要考虑的行为。具体策略待规划审阅。}

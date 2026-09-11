@@ -1,0 +1,60 @@
+% 当前正文配置：依据 TP-0.2；修改需同步受影响的接口与图表。
+\newcommand{\ExistingFPGAAsset}{竞业达 FPGA 试验箱}
+\newcommand{\ExistingFPGAAssetPurpose}{开源智能计算系统的可重构研究原型}
+\newcommand{\ExistingFPGAExactModel}{xc7k325tffg900-2}
+
+% 以下为暂定设计参数，后续按技术审阅结果修订。
+\newcommand{\ChipModel}{\FPGAModel}
+\newcommand{\ChipVendor}{AMD/Xilinx}
+\newcommand{\ChipOriginEvidence}{现有 FPGA 不属于国产处理器芯片；国产芯片落地仍待落实}
+\newcommand{\ProcessorArchitecture}{RISC-V}
+\newcommand{\ProcessorCore}{Rocket}
+\newcommand{\ProcessorCoreLicense}{按固定源码及子模块逐项保留原许可证}
+\newcommand{\InstructionSet}{RV64GC 与 RVV 1.0；NPU 采用 RoCC 自定义指令}
+\newcommand{\BoardModel}{竞业达 FPGA 试验箱}
+\newcommand{\BoardVendor}{竞业达}
+\newcommand{\FPGAModel}{xc7k325tffg900-2}
+\newcommand{\FPGAUsage}{集成单核处理器、向量单元和矩阵加速器}
+\newcommand{\SensorModel}{按后续感知场景确定}
+\newcommand{\CameraModel}{按后续视觉场景确定}
+\newcommand{\MemoryPlan}{片上 ROM/BRAM 启动；板上 DDR3 为系统与模型提供存储}
+\newcommand{\StoragePlan}{串口加载镜像与模型，首期无需额外存储设备}
+\newcommand{\HardwareInterfaces}{首期 UART；其他板载接口按原理图逐项适配}
+\newcommand{\CommunicationHardware}{首期使用现有 USB 转 UART 通道}
+\newcommand{\PowerSupplyPlan}{沿用试验箱供电条件}
+\newcommand{\AcceleratorHardware}{小规模 INT8 Gemmini 矩阵加速器}
+\newcommand{\HardwareIntegrationPlan}{Chipyard 组织 SoC，LiteDRAM 对接板上 DDR3}
+
+\newcommand{\VectorUnit}{Saturn}
+
+\newcommand{\VectorConfig}{MIN}
+
+\newcommand{\VectorLength}{128}
+
+\newcommand{\VectorDataWidth}{64}
+
+\newcommand{\AcceleratorName}{Gemmini}
+
+\newcommand{\AcceleratorArrayCandidates}{\(4\times4\) 或 \(8\times8\)}
+
+\newcommand{\MemoryController}{LiteDRAM}
+
+\newcommand{\MemoryPart}{MT41K256M16TW}
+
+\newcommand{\MemoryChipCount}{4}
+
+\newcommand{\MemoryBusWidth}{64}
+
+\newcommand{\MemoryCapacity}{2 GiB}
+
+\newcommand{\MemoryByteGroups}{8}
+
+\newcommand{\FPGALutLimit}{203,800}
+
+\newcommand{\FPGARegisterLimit}{407,600}
+
+\newcommand{\FPGADspLimit}{840}
+
+\newcommand{\FPGABramLimit}{445}
+
+\newcommand{\SerialBridge}{CP2104}

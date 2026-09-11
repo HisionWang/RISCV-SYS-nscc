@@ -1,0 +1,16 @@
+% 功能配置。
+% 字段名称用于对照题面，字段值由团队审阅后补充，不代表已经实现。
+% 应填写功能范围、输入输出或对应章节中的简称，勿填未经验证的成果结论。
+\newcommand{\CoreFunctionName}{面向三种计算后端的嵌入式推理}
+\newcommand{\AcquisitionFunction}{统一张量输入接口，逐步接入传感器采集}
+\newcommand{\CommunicationFunction}{首期串口输入与结果回传，后续增加通信适配器}
+\newcommand{\MobileDataCenterFunction}{预留带样本标识、时间信息与结果字段的数据上送接口}
+\newcommand{\MobileDataCenterEndpoint}{命题未指定，待对接确认}
+\newcommand{\VisionFunction}{从静态图像推理扩展至摄像头采集与预处理}
+\newcommand{\InferenceFunction}{静态量化模型执行、逐层数值校验与结果输出}
+\newcommand{\HybridDeploymentFunction}{同源推理核心分别构建 RT-Thread 与 Linux 程序，重启切换}
+\newcommand{\ControlFunction}{通过输出适配器扩展告警或控制动作}
+\newcommand{\ApplicationFunction}{模型部署、输入回放、后端切换与结果核验}
+\newcommand{\DataFlowDescription}{主机模型准备与转换→板上运行时→三后端计算→结果记录}
+\newcommand{\FunctionBoundary}{训练与转换在主机进行，嵌入式端负责推理}
+\newcommand{\DemonstrationFunction}{加载同一模型与输入，在三后端执行并展示逐层对照}

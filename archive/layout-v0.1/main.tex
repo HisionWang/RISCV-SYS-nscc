@@ -1,0 +1,34 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% 从 latex/ 目录编译本文件。所有反复修改的业务值位于 config/。
+\documentclass[UTF8,zihao=-4,fontset=none,a4paper]{ctexart}
+\input{config/config}
+\input{styles/fonts}
+\usepackage{styles/project}
+\begin{document}
+\hypersetup{pageanchor=false}
+\input{styles/cover}
+\pagenumbering{Roman}
+\hypersetup{pageanchor=true}
+{\small\linespread{1.08}\selectfont\setlength{\parskip}{0pt}\tableofcontents}
+\clearpage
+\pagenumbering{arabic}
+\SectionPageBreak
+\input{sections/01-overview}
+\SectionPageBreak
+\input{sections/02-requirements}
+\SectionPageBreak
+\input{sections/03-architecture}
+\SectionPageBreak
+\input{sections/04-hardware}
+\SectionPageBreak
+\input{sections/05-software}
+\SectionPageBreak
+\input{sections/06-perception}
+\SectionPageBreak
+\input{sections/07-validation}
+\SectionPageBreak
+\input{sections/08-implementation}
+\SectionPageBreak
+\input{sections/09-appendix}
+\end{document}

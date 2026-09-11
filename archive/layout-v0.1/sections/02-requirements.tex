@@ -1,0 +1,20 @@
+% 完整题面仅在附件保留；本节提供响应结构。
+\section{命题理解与需求响应}
+\KeyPoint{\StoryOneTitle}{\StoryOneQuestion}
+
+\subsection{企业问题与使用边界}
+\ContentSlot{需求背景}{应从原始题面和真实对接记录提炼使用对象、使用条件、实际问题及约束。区分题面明确要求、团队解释与仍需企业确认的问题。}
+
+\subsection{命题要求对应关系}
+\noindent\begin{tabularx}{\linewidth}{@{}p{0.19\linewidth}XXX@{}}
+\toprule
+需求类别 & 题面依据 & 设计响应 & 验证或确认方式 \\
+\midrule
+硬件与处理架构 & \RequirementHardwareBasis & \RequirementHardwareResponse & \RequirementHardwareVerification \\
+国产开源软件与部署 & \RequirementSoftwareBasis & \RequirementSoftwareResponse & \RequirementSoftwareVerification \\
+感知、通信与智能任务 & \RequirementFunctionsBasis & \RequirementFunctionsResponse & \RequirementFunctionsVerification \\
+功能交付与性能 & \RequirementDeliveryBasis & \RequirementDeliveryResponse & \RequirementDeliveryVerification \\
+\bottomrule
+\end{tabularx}
+
+\ContentSlot{边界与待确认事项}{应逐项说明哪些工作属于本方案，哪些依赖企业资料、设备资源或后续确认。}
