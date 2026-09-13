@@ -1,27 +1,32 @@
 \section{团队介绍}
 \subsection{团队成员}
 
-团队共有\TeamSize{}名参赛成员，指导教师为\AdvisorName{}，项目负责人为\TeamLeader{}。成员姓名与最终职责将在团队确认后补充。团队已有\TeamKnowledgeBasis{}基础，将在本项目中结合具体需求开展系统设计与验证。
+\TeamName{}共有\TeamSize{}名成员，项目负责人为\TeamLeader{}。
+团队依托\TeamAffiliation{}，成员履历涵盖处理器设计、微体系结构、编译器、算子开发及科研训练，
+为嵌入式智能计算系统的软硬件协同设计提供知识与实践基础。
 
-现阶段按七类任务域提出岗位建议，供成员结合能力认领。下表列出的是工作组织方案，尚不构成对具体成员的职责分派或贡献认定。
+\TeamMemberProfile{\MemberOnePhoto}{\MemberOneName}{\MemberOneRole}
+  {\MemberOneSchool{} · \MemberOneGrade{} · \MemberOneMajor}{\MemberOneBio}
+\TeamMemberProfile{\MemberTwoPhoto}{\MemberTwoName}{\MemberTwoRole}
+  {\MemberTwoSchool{} · \MemberTwoGrade{} · \MemberTwoMajor}{\MemberTwoBio}
+\TeamMemberProfile{\MemberThreePhoto}{\MemberThreeName}{\MemberThreeRole}
+  {\MemberThreeSchool{} · \MemberThreeGrade{} · \MemberThreeMajor}{\MemberThreeBio}
+\TeamMemberProfile{\MemberFourPhoto}{\MemberFourName}{\MemberFourRole}
+  {\MemberFourSchool{} · \MemberFourGrade{} · \MemberFourMajor}{\MemberFourBio}
+\TeamMemberProfile{\MemberFivePhoto}{\MemberFiveName}{\MemberFiveRole}
+  {\MemberFiveSchool{} · \MemberFiveGrade{} · \MemberFiveMajor}{\MemberFiveBio}
+\TeamMemberProfile{\MemberSixPhoto}{\MemberSixName}{\MemberSixRole}
+  {\MemberSixSchool{} · \MemberSixGrade{} · \MemberSixMajor}{\MemberSixBio}
+\TeamMemberProfile{\MemberSevenPhoto}{\MemberSevenName}{\MemberSevenRole}
+  {\MemberSevenSchool{} · \MemberSevenGrade{} · \MemberSevenMajor}{\MemberSevenBio}
 
-{\small\renewcommand{\arraystretch}{\CompactTableStretch}
-\noindent\begin{tabularx}{\linewidth}{@{}P{.31\linewidth}Y@{}}
-\toprule
-建议岗位 & 主要任务与交付物 \\
-\midrule
-\MemberOneRole & 维护命题响应、版本与阶段安排，整理学校及企业待确认事项。 \\
-\MemberTwoRole & 组织计算单元、互连和DDR接口设计，形成配置、仿真及资源检查记录。 \\
-\MemberThreeRole & 梳理启动链与板级支持，组织两种系统分别构建、启动及上下文测试。 \\
-\MemberFourRole & 维护算子定义、量化约束和独立整数参考，形成逐层对照用例。 \\
-\MemberFiveRole & 研究RVV与NPU调用、数据搬运和参数衔接，完成后端适配及单算子核对。 \\
-\MemberSixRole & 准备合法模型资产和独立测试数据，组织转换、误差与端到端验证。 \\
-\MemberSevenRole & 组织输入输出流程、演示记录和解决方案材料，确保图文与实际状态一致。 \\
-\bottomrule
-\end{tabularx}}
+\subsection{指导教师}
+\TeamAdvisorProfile{\AdvisorName}{\AdvisorRole}
 
 \subsection{团队架构}
+团队由\TeamLeader{}负责统筹，围绕硬件平台、推理软件和验证应用开展协作。
+硬件接口变更同步到软件地址图、参数头和启动配置；算子定义变更同步到转换器、后端与参考测试。
+接口由提出者说明约束、使用者交叉复核，保障各模块联合运行时的一致性。
 
-团队拟围绕硬件平台、推理软件和验证应用开展协作。硬件接口变更应同步到软件使用的地址图、参数头和启动配置；算子定义变更应同步到转换器、后端与参考测试。每项接口由提出者说明约束，由使用该接口的成员复核，减少各模块单独成立而联合运行不一致的问题。
-
-项目负责人统筹需求、版本和验收，\AdvisorName{}老师指导技术边界、关键方案与阶段复核。成员以设计文档、代码提交、测试记录和问题修复说明记录投入，并通过交叉复核分享知识。角色可依据进展调整，最终贡献按实际交付认定。\cite{reviewrules}
+成员根据研究基础认领任务，以设计文档、代码提交、测试记录及问题修复说明登记实际贡献。
+\AdvisorName{}老师的具体指导分工在导师资料完善后补充；各成员的本项目任务与阶段交付物持续更新。\cite{reviewrules}

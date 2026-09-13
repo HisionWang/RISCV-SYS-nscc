@@ -12,7 +12,7 @@ for file in sorted((root / "config").glob("*.tex")):
     if entries:
         lines += ["## " + file.name, "", "| 宏 | 定义位置 |", "|---|---|"]
         for name, number in entries:
-            lines.append("| `\\" + name + "` | [" + str(number) + "](<" + file.as_posix() + ":" + str(number) + ">) |")
+            lines.append("| `\\" + name + "` | [" + str(number) + "](<" + file.name + "#L" + str(number) + ">) |")
         lines.append("")
         count += len(entries)
 (root / "config" / "README.md").write_text("\n".join(lines), encoding="utf-8")

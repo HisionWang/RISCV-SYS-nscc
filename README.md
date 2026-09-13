@@ -1,10 +1,10 @@
 # 嵌入式智能计算系统解决方案
 
-当前版本为 **v0.4 新增用户需求分析**，技术依据为 [TP-0.2 技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
+当前版本为 **v0.5 补充团队成员信息**，技术依据为 [TP-0.2 技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
 
 ## 阅读与编译
 
-- 最新正文 PDF：[`output/solution-draft.pdf`](output/solution-draft.pdf)。
+- 最新正文 PDF：[`output/solution-draft.pdf`](output/solution-draft.pdf)；根目录 `main.pdf` 同步保留相同内容。
 - 主文件：[`main.tex`](main.tex)，章节位于 `sections/`。
 - 配置总索引：[`config/README.md`](config/README.md)。
 
@@ -29,7 +29,7 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 | 文件 | 修改内容 |
 |---|---|
 | `config/document.tex` | 文档、赛事、工作名称、版本、企业评价状态 |
-| `config/people.tex` | 负责人、导师、成员信息与建议岗位 |
+| `config/people.tex` | 负责人、导师预留字段、成员履历与照片路径 |
 | `config/hardware.tex` | 板卡、处理器、向量单元、加速器、DDR 与器件资源 |
 | `config/software.tex` | 操作系统、工具链、运行体系及部署方式 |
 | `config/models.tex` | 首个验证模型、形状、类型、量化及结构核算 |
@@ -47,9 +47,13 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 
 ## 后续修订
 
-1. 在个人配置中确认负责人、学校、团队名称和联系方式。
+1. 在 config/people.tex 审阅成员履历与专业名称，补充导师职称、研究方向、指导分工及照片。
 2. 审阅本版系统讲述与图表，按反馈修改对应配置及章节。
 3. 后续工程结果形成后，补充模型来源、资源、时序、数值测试及企业反馈；本轮不填造实测数据。
 4. 文书可以领先实现多个版本；每次变更记录其技术基线，接口和实际配置同步复核。
 
 图表由 LaTeX/TikZ 原生生成，技术标签引用配置宏。中文字体优先使用本机字体副本，其他环境回退到 TeX Fandol；字体副本仅作本机编译依赖。
+
+## Git 协作
+
+后续修改以本仓库为基线，遵循 [AGENTS.md](AGENTS.md)：在工作分支完成局部修改、编译和审阅，用户确认后再合入 main 并推送。

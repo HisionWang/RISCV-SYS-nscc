@@ -76,3 +76,41 @@
 \makeatother
 
 \setcounter{tocdepth}{2}
+
+% 团队成员条目：图片保持原比例；人员内容与照片路径统一取自 config/people.tex。
+\newcommand{\TeamMemberProfile}[5]{%
+  \par\addvspace{\TeamProfileGap}\Needspace{44mm}%
+  \noindent\begin{minipage}[t]{\TeamPhotoColumnWidth}
+    \vspace{0pt}\centering
+    \includegraphics[width=\TeamPhotoWidth,height=\TeamPhotoHeight,keepaspectratio]{#1}
+  \end{minipage}\hfill%
+  \begin{minipage}[t]{\dimexpr\linewidth-\TeamPhotoColumnWidth-5mm\relax}
+    \vspace{0pt}
+    {\normalsize\sffamily #2}\quad{\small\color{Muted}#3}\par
+    \vspace{1mm}
+    {\small\color{Muted}\raggedright #4\par}
+    \vspace{1mm}
+    {\small\linespread{1.12}\selectfont\setlength{\parskip}{0pt}\noindent #5\par}
+  \end{minipage}\par
+}
+\newcommand{\TeamAdvisorProfile}[2]{%
+  \par\Needspace{42mm}%
+  \noindent\begin{minipage}[t]{\TeamPhotoColumnWidth}
+    \vspace{0pt}\centering
+    \IfFileExists{\AdvisorPhoto}{%
+      \includegraphics[width=\TeamPhotoWidth,height=\TeamPhotoHeight,keepaspectratio]{\AdvisorPhoto}%
+    }{%
+      \setlength{\fboxsep}{0pt}%
+      \fcolorbox{Rule}{Panel}{\parbox[c][\AdvisorPlaceholderHeight][c]{\TeamPhotoWidth}{\centering\small\color{Muted}\AdvisorPhotoPlaceholder}}%
+    }
+  \end{minipage}\hfill%
+  \begin{minipage}[t]{\dimexpr\linewidth-\TeamPhotoColumnWidth-5mm\relax}
+    \vspace{0pt}
+    {\normalsize\sffamily #1}\quad{\small\color{Muted}#2}\par
+    {\small\linespread{1.12}\selectfont\setlength{\parskip}{1mm}
+      职称：\AdvisorTitle\par
+      所在单位：\AdvisorDepartment\par
+      研究方向：\AdvisorResearchAreas\par
+      指导分工：\AdvisorGuidance\par}
+  \end{minipage}\par
+}
