@@ -27,6 +27,7 @@
 | `\CoverCompetitionLeading` | [30](<appearance.tex#L30>) |
 | `\CoverChallengeFontSize` | [31](<appearance.tex#L31>) |
 | `\CoverChallengeLeading` | [32](<appearance.tex#L32>) |
+| `\CoverChallengeWidth` | [33](<appearance.tex#L33>) |
 
 ## document.tex
 
