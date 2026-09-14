@@ -1,0 +1,82 @@
+% 原生矢量页边装饰：主体区域留白，封面与正文分别控制强度。
+\definecolor{CoverPaper}{HTML}{\CoverPaperColorHTML}
+\definecolor{CoverEdge}{HTML}{\CoverEdgeColorHTML}
+\definecolor{BodyEdge}{HTML}{\BodyEdgeColorHTML}
+\definecolor{Circuit}{HTML}{\CircuitColorHTML}
+
+\newcommand{\DrawCoverBackground}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \begin{scope}[shift={(current page.south west)},x=1mm,y=1mm]
+      \fill[CoverPaper] (0,0) rectangle (210,297);
+      \fill[CoverEdge] (139,297)--(210,297)--(210,209)--(174,243)--cycle;
+      \fill[Brand] (198,297)--(210,297)--(210,248)--(205,248)--(198,255)--cycle;
+      \fill[Panel] (0,0)--(210,0)--(210,21)--(174,21)--(152,5)--(0,5)--cycle;
+      \fill[Brand] (14,256) rectangle (16,283);
+      \fill[Accent!65] (14,247) rectangle (16,252);
+      \fill[Brand] (0,0)--(210,0)--(210,14)--(163,14)--(157,8)--(88,8)--(82,5)--(0,5)--cycle;
+      \draw[Accent,line width=.9pt] (0,9)--(81,9)--(87,12)--(151,12);
+      \begin{scope}
+        \draw[Circuit!\CoverGridTint,line width=.2pt,step=5mm] (170,262) grid (210,297);
+      \end{scope}
+      \begin{scope}[draw=Circuit!\CoverCircuitTint,line width=.8pt]
+        \filldraw[fill=CoverEdge,draw=Accent] (169,19) rectangle (192,42);
+        \draw[draw=Brand!65] (174,24) rectangle (187,37);
+        \foreach \x in {177,181,185} {
+          \foreach \y in {27,31,35} {
+            \fill[Accent!40] (\x,\y) rectangle ++(1,1);
+          }
+        }
+        \foreach \x in {172,176,180,184,188} {
+          \draw (\x,16)--(\x,19);
+          \draw (\x,42)--(\x,45);
+        }
+        \foreach \y in {23,27,31,35,39} {
+          \draw (166,\y)--(169,\y);
+          \draw (192,\y)--(195,\y);
+        }
+        \draw (166,27)--(160,27)--(151,18)--(123,18);
+        \draw (166,35)--(157,35)--(144,22)--(111,22);
+        \draw (184,45)--(184,48)--(198,62)--(210,62);
+        \draw (188,45)--(188,46)--(203,61)--(203,88);
+        \draw (195,31)--(199,31)--(204,36)--(210,36);
+        \foreach \x/\y in {123/18,111/22,203/88} {
+          \fill[Circuit!50] (\x,\y) circle (.75);
+        }
+        \draw (204,278)--(196,278)--(186,268)--(175,268);
+        \draw (210,273)--(201,273)--(191,263)--(181,263);
+        \fill[Circuit!50] (175,268) circle (.65);
+        \fill[Circuit!50] (181,263) circle (.65);
+      \end{scope}
+    \end{scope}
+  \end{tikzpicture}%
+}
+
+\newcommand{\DrawBodyBackground}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \begin{scope}[shift={(current page.south west)},x=1mm,y=1mm]
+      \fill[BodyEdge] (177,297)--(210,297)--(210,264)--cycle;
+      \fill[BodyEdge] (0,0)--(40,0)--(0,29)--cycle;
+      \fill[Accent!45] (14,268) rectangle (15.2,280);
+      \begin{scope}[draw=Circuit!\BodyCircuitTint,line width=.55pt]
+        \draw (164,12)--(183,12)--(191,20)--(210,20);
+        \draw (172,8)--(187,8)--(195,16)--(210,16);
+        \draw (201,270)--(201,280)--(208,287)--(208,297);
+        \draw (205,273)--(205,281)--(210,286);
+        \fill[Circuit!50] (164,12) circle (.55);
+        \fill[Circuit!50] (172,8) circle (.55);
+        \fill[Circuit!50] (201,270) circle (.55);
+      \end{scope}
+    \end{scope}
+  \end{tikzpicture}%
+}
+
+\newif\ifProjectCoverPage
+\ProjectCoverPagetrue
+\AddToHook{shipout/background}{%
+  \ifProjectCoverPage
+    \DrawCoverBackground
+    \global\ProjectCoverPagefalse
+  \else
+    \DrawBodyBackground
+  \fi
+}

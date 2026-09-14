@@ -1,6 +1,6 @@
 # 嵌入式智能计算系统解决方案
 
-解决方案已补充团队成员与指导教师信息，技术依据为 [技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。PDF 不显示文档修订编号、稿件状态标签和封面日期；封面突出比赛名称与完整赛题。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
+解决方案已补充团队成员与指导教师信息，并完善软硬件架构图和页面视觉样式，技术依据为 [技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。PDF 不显示文档修订编号、稿件状态标签和封面日期；封面突出比赛名称与完整赛题。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
 
 ## 阅读与编译
 
@@ -40,7 +40,8 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 | `config/versions.tex` | 固定源码提交 |
 | `config/sources.tex` | 参考来源标题与链接 |
 | `config/source-brief.tex` | 企业题面原文，核对来源后才能变更 |
-| `config/appearance.tex` | 纸张、页边距、行距、颜色与封面字号 |
+| `config/appearance.tex` | 纸张、页边距、行距、颜色、封面字号与背景装饰强度 |
+| `config/diagrams.tex` | 软硬件架构图节点、接口标签和图题 |
 | `config/presentation.tex` | 后续讲述提纲的可修改关键词 |
 
 正文调用宏，不在不同章节重复维护同一型号或名称。`ProjectName` 为本版工作名称，可在配置中统一替换；未确认的个人信息仍显示“待补充”。宏索引可运行 `scripts/update-config-index.py` 更新。
@@ -52,7 +53,7 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 3. 后续工程结果形成后，补充模型来源、资源、时序、数值测试及企业反馈；本轮不填造实测数据。
 4. 文书可以领先实现多个版本；每次变更记录其技术基线，接口和实际配置同步复核。
 
-图表由 LaTeX/TikZ 原生生成，技术标签引用配置宏。中文字体优先使用本机字体副本，其他环境回退到 TeX Fandol；字体副本仅作本机编译依赖。
+图表由 LaTeX/TikZ 原生生成，技术标签引用配置宏。两张架构图位于 `assets/diagrams/`，背景位于 `styles/background.tex`；沿用原章节结构。视觉上参考往年互联网+作品的蓝色主题和页边电路线，采用白底正文、浅蓝几何底纹及少量青蓝强调。中文字体优先使用本机字体副本，其他环境回退到 TeX Fandol；字体副本仅作本机编译依赖。
 
 ## Git 协作
 

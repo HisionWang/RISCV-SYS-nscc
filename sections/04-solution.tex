@@ -1,40 +1,18 @@
 \section{实现方案}
 \subsection{作品简介}
-本方案构建\RuntimeName{}：开发者在主机端描述模型、准备权重，转换器生成算子顺序和内存计划；
-板上运行时调用\ProcessorCore{}标量、\VectorUnit{}向量或\AcceleratorName{}矩阵后端，输出带样本标识的结果及逐层记录。
-模型训练和量化准备在主机完成，嵌入式端专注推理。
-
-作品由可重构计算平台及配套软件组成，首个验证对象为\AIModel{}，随后扩展视觉与智能感知应用。
-本章说明系统设计；\BoardModel{}是现有资源，联合硬件、系统适配与推理程序按后述路径研发和验证。
+本方案基于现有\BoardModel{}设计\RuntimeName{}。主机端完成模型训练、量化及执行计划生成；板端通过\ProcessorCore{}、\VectorUnit{}和\AcceleratorName{}三种后端执行推理，输出带样本标识的结果与逐层记录。首个验证对象为\AIModel{}，后续扩展视觉与智能感知，软硬件按下述路径研发和验证。
 
 \subsection{技术方案}
 \subsubsection{系统分层与数据流}
-系统按模型准备、部署转换、运行调度、算子执行和设备接入分层。模型与设备之间以张量为接口，运行时与操作系统之间以平台适配层为接口。
-这样的组织方式使开发者增加算子时能够先建立数值语义，再实现后端；增加设备时则只需接入输入输出适配器。
-
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[node distance=5mm,
- box/.style={draw=Rule,fill=Panel,rounded corners=1mm,align=center,font=\small,minimum height=12mm,text width=11.8cm},
- backend/.style={box,text width=3.5cm,minimum height=17mm},
- arr/.style={-{Latex[length=2mm]},draw=Accent,thick}]
-\node[box] (model) {主机：模型、权重与算子描述\\静态形状、布局、数据类型、预处理与量化定义};
-\node[box,below=of model] (convert) {受限模型转换器\\合法性检查 → 后端选择 → 内存与执行计划};
-\node[box,below=of convert] (package) {部署包：程序、权重、清单与参考结果\\记录模型版本、算子版本和硬件参数};
-\node[box,below=of package] (runtime) {板上：轻量推理运行时\\\RealTimeSystem{} 或 \LinuxDistribution{}；经适配层读入张量、输出结果};
-\node[backend,below=10mm of runtime] (rvv) {\VectorUnit{} RVV 后端\\逐元素与数据整理};
-\node[backend,left=4mm of rvv] (scalar) {\ProcessorCore{}标量后端\\控制与已注册算子};
-\node[backend,right=4mm of rvv] (npu) {\AcceleratorName{} NPU 后端\\矩阵乘与数据搬运};
-\draw[arr] (model)--(convert);
-\draw[arr] (convert)--(package);
-\draw[arr] (package)--(runtime);
-\draw[arr] (runtime.south)--(rvv.north);
-\draw[arr] (runtime.south) -- ++(0,-4mm) -| (scalar.north);
-\draw[arr] (runtime.south) -- ++(0,-4mm) -| (npu.north);
-\end{tikzpicture}
-\caption{拟设计的软件体系与部署数据流}
+\input{assets/diagrams/software-architecture.tex}
+\caption{\SoftwareArchitectureCaption}
 \label{fig:software}
 \end{figure}
+
+系统按模型准备、部署转换、运行调度、算子执行和设备接入分层。模型与设备之间以张量为接口，运行时与操作系统之间以平台适配层为接口。
+这样的组织方式使开发者增加算子时能够先建立数值语义，再实现后端；增加设备时则只需接入输入输出适配器。
 
 输入适配器首先支持串口接收测试张量或静态图像，输出适配器回传类别、样本标识与诊断记录。
 后续摄像头、传感器及外部中心沿用相同数据边界，但需要分别实现设备驱动、预处理及通信协议。
@@ -46,24 +24,8 @@
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[
- box/.style={draw=Rule,fill=Panel,rounded corners=1mm,align=center,font=\small,minimum height=15mm,text width=3.35cm},
- arr/.style={-{Latex[length=2mm]},draw=Accent,thick}]
-\node[box] (cpu) at (0,0) {\ProcessorCore{} 单核 CPU\\控制、操作系统、调度};
-\node[box] (vec) at (-4.5,0) {\VectorUnit{} 向量单元\\RVV 指令执行};
-\node[box] (gem) at (4.5,0) {\AcceleratorName{} 矩阵单元\\RoCC 命令、DMA};
-\node[box,text width=12.2cm,minimum height=12mm] (fabric) at (0,-2.1) {统一缓存／地址翻译／一致性互连与内存访问体系};
-\node[box,text width=6.2cm] (dram) at (-2.7,-4.1) {\MemoryController{} 控制器与 PHY\\板上 DDR3：\MemoryCapacity{} 标称容量};
-\node[box,text width=4.5cm] (io) at (3.7,-4.1) {片上 ROM/BRAM、UART\\启动与基础输入输出};
-\draw[arr] (cpu.west)--node[above,font=\scriptsize]{向量通路}(vec.east);
-\draw[arr] (cpu.east)--node[above,font=\scriptsize]{RoCC}(gem.west);
-\draw[arr] (cpu.south)--(fabric.north);
-\draw[arr] (vec.south)--(vec.south|-fabric.north);
-\draw[arr] (gem.south)--node[right,font=\scriptsize]{DMA}(gem.south|-fabric.north);
-\draw[arr] (fabric.south -| dram.north)--(dram.north);
-\draw[arr] (fabric.south -| io.north)--(io.north);
-\end{tikzpicture}
-\caption{拟设计的硬件逻辑关系；地址翻译与一致性连接仍需联合适配}
+\input{assets/diagrams/hardware-architecture.tex}
+\caption{\HardwareArchitectureCaption}
 \label{fig:hardware}
 \end{figure}
 

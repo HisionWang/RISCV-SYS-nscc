@@ -28,6 +28,61 @@
 | `\CoverChallengeFontSize` | [31](<appearance.tex#L31>) |
 | `\CoverChallengeLeading` | [32](<appearance.tex#L32>) |
 | `\CoverChallengeWidth` | [33](<appearance.tex#L33>) |
+| `\CoverPaperColorHTML` | [36](<appearance.tex#L36>) |
+| `\CoverEdgeColorHTML` | [37](<appearance.tex#L37>) |
+| `\BodyEdgeColorHTML` | [38](<appearance.tex#L38>) |
+| `\CircuitColorHTML` | [39](<appearance.tex#L39>) |
+| `\CoverCircuitTint` | [40](<appearance.tex#L40>) |
+| `\CoverGridTint` | [41](<appearance.tex#L41>) |
+| `\BodyCircuitTint` | [42](<appearance.tex#L42>) |
+
+## diagrams.tex
+
+| 宏 | 定义位置 |
+|---|---|
+| `\DiagramNodeFont` | [2](<diagrams.tex#L2>) |
+| `\DiagramTitleFont` | [3](<diagrams.tex#L3>) |
+| `\DiagramLabelFont` | [4](<diagrams.tex#L4>) |
+| `\SoftwareArchitectureCaption` | [5](<diagrams.tex#L5>) |
+| `\HardwareArchitectureCaption` | [6](<diagrams.tex#L6>) |
+| `\DiagramSoftwareHostTitle` | [7](<diagrams.tex#L7>) |
+| `\DiagramSoftwareBoardTitle` | [8](<diagrams.tex#L8>) |
+| `\DiagramSoftwareModelLabel` | [9](<diagrams.tex#L9>) |
+| `\DiagramSoftwareConvertLabel` | [10](<diagrams.tex#L10>) |
+| `\DiagramSoftwarePackageLabel` | [11](<diagrams.tex#L11>) |
+| `\DiagramSoftwareDeployLabel` | [12](<diagrams.tex#L12>) |
+| `\DiagramSoftwareInputLabel` | [13](<diagrams.tex#L13>) |
+| `\DiagramSoftwareRuntimeLabel` | [14](<diagrams.tex#L14>) |
+| `\DiagramSoftwareResultLabel` | [15](<diagrams.tex#L15>) |
+| `\DiagramSoftwareScalarLabel` | [16](<diagrams.tex#L16>) |
+| `\DiagramSoftwareVectorLabel` | [17](<diagrams.tex#L17>) |
+| `\DiagramSoftwareNpuLabel` | [18](<diagrams.tex#L18>) |
+| `\DiagramSoftwareSelectLabel` | [19](<diagrams.tex#L19>) |
+| `\DiagramSoftwarePlatformLabel` | [20](<diagrams.tex#L20>) |
+| `\DiagramSoftwareInputExtensionLabel` | [21](<diagrams.tex#L21>) |
+| `\DiagramSoftwareOutputExtensionLabel` | [22](<diagrams.tex#L22>) |
+| `\DiagramSoftwarePrimaryLegend` | [23](<diagrams.tex#L23>) |
+| `\DiagramSoftwareExtensionLegend` | [24](<diagrams.tex#L24>) |
+| `\DiagramHardwareBoundaryTitle` | [25](<diagrams.tex#L25>) |
+| `\DiagramHardwareLegendLabel` | [26](<diagrams.tex#L26>) |
+| `\DiagramHardwareCpuLabel` | [27](<diagrams.tex#L27>) |
+| `\DiagramHardwareVectorLabel` | [28](<diagrams.tex#L28>) |
+| `\DiagramHardwareNpuLabel` | [29](<diagrams.tex#L29>) |
+| `\DiagramHardwareCacheLabel` | [30](<diagrams.tex#L30>) |
+| `\DiagramHardwareFabricLabel` | [31](<diagrams.tex#L31>) |
+| `\DiagramHardwareDramControllerLabel` | [32](<diagrams.tex#L32>) |
+| `\DiagramHardwareRomLabel` | [33](<diagrams.tex#L33>) |
+| `\DiagramHardwareUartLabel` | [34](<diagrams.tex#L34>) |
+| `\DiagramHardwareDdrLabel` | [35](<diagrams.tex#L35>) |
+| `\DiagramHardwareBridgeLabel` | [36](<diagrams.tex#L36>) |
+| `\DiagramHardwareVectorEdge` | [37](<diagrams.tex#L37>) |
+| `\DiagramHardwareRoccEdge` | [38](<diagrams.tex#L38>) |
+| `\DiagramHardwareMemoryEdge` | [39](<diagrams.tex#L39>) |
+| `\DiagramHardwareDmaEdge` | [40](<diagrams.tex#L40>) |
+| `\DiagramHardwareDdrEdge` | [41](<diagrams.tex#L41>) |
+| `\DiagramHardwarePeripheralEdge` | [42](<diagrams.tex#L42>) |
+| `\DiagramHardwareBootLabel` | [43](<diagrams.tex#L43>) |
+| `\DiagramHardwareConstraintLabel` | [44](<diagrams.tex#L44>) |
 
 ## document.tex
 

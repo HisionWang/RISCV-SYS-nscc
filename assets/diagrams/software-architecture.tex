@@ -1,0 +1,58 @@
+% Native TikZ artwork. Canvas: 150 x 144 mm; no figure/caption wrapper.
+\begin{tikzpicture}[
+ x=1mm,y=1mm,every node/.style={outer sep=0,align=center},
+ dbox/.style={draw=Rule,fill=white,rounded corners=1.2mm,line width=.6pt,
+ inner xsep=2mm,inner ysep=1.2mm,font=\DiagramNodeFont},
+ primary/.style={draw=Accent,line width=.75pt,-{Latex[length=1.7mm,width=1.15mm]}},
+ extension/.style={draw=Muted,densely dashed,line width=.65pt,-{Latex[length=1.6mm,width=1.1mm]}}
+]
+\useasboundingbox (0,0) rectangle (150,144);
+% Host-side preparation and deployment.
+\path[draw=Rule,fill=Panel,rounded corners=2mm,line width=.6pt] (1,116) rectangle (149,143);
+\node[anchor=west,font=\DiagramTitleFont,text=Brand] at (5,140) {\DiagramSoftwareHostTitle};
+\node[dbox,text width=36mm,minimum height=17mm] (sw-model) at (24,127.5) {\DiagramSoftwareModelLabel};
+\node[dbox,text width=42mm,minimum height=17mm] (sw-convert) at (75,127.5) {\DiagramSoftwareConvertLabel};
+\node[dbox,text width=32mm,minimum height=17mm] (sw-package) at (128,127.5) {\DiagramSoftwarePackageLabel};
+\draw[primary] (sw-model.east)--(sw-convert.west);
+\draw[primary] (sw-convert.east)--(sw-package.west);
+% Future adapters are explicitly outside the first demonstration scope.
+\node[dbox,draw=Muted,densely dashed,fill=white,text=Muted,text width=36mm,
+ minimum height=10mm,font=\DiagramLabelFont] (sw-future-input) at (24,106) {\DiagramSoftwareInputExtensionLabel};
+\node[dbox,draw=Muted,densely dashed,fill=white,text=Muted,text width=34mm,
+ minimum height=10mm,font=\DiagramLabelFont] (sw-future-output) at (127,106) {\DiagramSoftwareOutputExtensionLabel};
+% Board execution area.
+\path[draw=Rule,fill=Panel,rounded corners=2mm,line width=.6pt] (1,21) rectangle (149,98);
+\node[anchor=west,font=\DiagramTitleFont,text=Brand] at (5,95) {\DiagramSoftwareBoardTitle};
+\node[dbox,text width=36mm,minimum height=17mm] (sw-input) at (24,83) {\DiagramSoftwareInputLabel};
+\node[dbox,draw=Accent,fill=Accent!7,text width=43mm,minimum height=19mm]
+ (sw-runtime) at (75,83) {\DiagramSoftwareRuntimeLabel};
+\node[dbox,text width=32mm,minimum height=18mm] (sw-result) at (127,83) {\DiagramSoftwareResultLabel};
+\draw[primary] (sw-package.south)--(128,115)--(75,115)--(sw-runtime.north);
+\node[anchor=west,font=\DiagramLabelFont,text=Muted,fill=white,inner sep=.6mm]
+ at (77,112) {\DiagramSoftwareDeployLabel};
+\draw[extension] (sw-future-input.south)--(sw-input.north);
+\draw[extension] (sw-result.north)--(sw-future-output.south);
+\draw[primary] (sw-input.east)--(sw-runtime.west);
+\node[dbox,text width=36mm,minimum height=18mm] (sw-scalar) at (24,57) {\DiagramSoftwareScalarLabel};
+\node[dbox,draw=Accent!65,text width=36mm,minimum height=18mm] (sw-vector) at (75,57) {\DiagramSoftwareVectorLabel};
+\node[dbox,draw=Accent!65,text width=36mm,minimum height=18mm] (sw-npu) at (126,57) {\DiagramSoftwareNpuLabel};
+% Dispatch is per operator, not concurrent full-model copies.
+\draw[draw=Accent,line width=.75pt] (sw-runtime.south)--(75,70);
+\draw[primary] (75,70)--(24,70)--(sw-scalar.north);
+\draw[primary] (75,70)--(sw-vector.north);
+\draw[primary] (75,70)--(126,70)--(sw-npu.north);
+\node[font=\DiagramLabelFont,text=Muted,fill=Panel,inner sep=.5mm] at (75,70) {\DiagramSoftwareSelectLabel};
+% Operator output and diagnostic collection.
+\draw[draw=Accent,line width=.75pt] (sw-scalar.south)--(24,44)--(148,44);
+\draw[draw=Accent,line width=.75pt] (sw-vector.south)--(75,44);
+\draw[draw=Accent,line width=.75pt] (sw-npu.south)--(126,44);
+\foreach \x in {75,126} \fill[Accent] (\x,44) circle[radius=.55mm];
+\draw[primary] (148,44)--(148,83)--(sw-result.east);
+% Platform services underpin execution, rather than forming a dataflow step.
+\node[dbox,draw=Brand!25,fill=Brand!6,text width=138mm,minimum height=16mm]
+ at (75,31) {\DiagramSoftwarePlatformLabel};
+\draw[primary] (5,10)--(15,10);
+\node[anchor=west,font=\DiagramLabelFont,text=Muted] at (18,10) {\DiagramSoftwarePrimaryLegend};
+\draw[extension] (74,10)--(84,10);
+\node[anchor=west,font=\DiagramLabelFont,text=Muted] at (87,10) {\DiagramSoftwareExtensionLegend};
+\end{tikzpicture}

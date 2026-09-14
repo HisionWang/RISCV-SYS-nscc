@@ -10,7 +10,7 @@
 \definecolor{Panel}{HTML}{\PanelColorHTML}
 \RequirePackage{graphicx}
 \RequirePackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds}
 \graphicspath{{assets/}}
 \RequirePackage{array,tabularx,longtable,booktabs,multirow}
 \RequirePackage{enumitem}
@@ -40,8 +40,10 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{Muted}\DocumentTitle}
+\fancyhead[R]{\small\color{Muted}\CompetitionDirection}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\headrule}{{\color{Rule}\hrule width\headwidth height\headrulewidth\vskip-\headrulewidth}}
 \renewcommand{\footrulewidth}{0pt}
 \fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
 \newcommand{\ContentSlot}[2]{%
@@ -115,3 +117,5 @@
       指导分工：\AdvisorGuidance\par}
   \end{minipage}\par
 }
+
+\input{styles/background}

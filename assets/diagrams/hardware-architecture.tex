@@ -1,0 +1,45 @@
+% Native TikZ artwork. Canvas: 150 x 144 mm; board DDR is outside the FPGA.
+\begin{tikzpicture}[
+ x=1mm,y=1mm,every node/.style={outer sep=0,align=center},
+ dbox/.style={draw=Rule,fill=white,rounded corners=1.2mm,line width=.6pt,
+ inner xsep=2mm,inner ysep=1.2mm,font=\DiagramNodeFont},
+ data/.style={draw=Accent,line width=.8pt,{Latex[length=1.4mm,width=1mm]}-{Latex[length=1.4mm,width=1mm]}},
+ control/.style={draw=Brand,line width=.7pt,{Latex[length=1.4mm,width=1mm]}-{Latex[length=1.4mm,width=1mm]}},
+ edgelabel/.style={font=\DiagramLabelFont,text=Muted,fill=Panel,inner sep=.4mm}
+]
+\useasboundingbox (0,0) rectangle (150,144);
+% FPGA boundary separates soft logic from board-mounted external devices.
+\path[draw=Brand!45,fill=Panel,rounded corners=2mm,line width=.8pt] (2,43) rectangle (148,143);
+\node[anchor=west,font=\DiagramTitleFont,text=Brand] at (6,139) {\DiagramHardwareBoundaryTitle};
+\node[anchor=east,font=\DiagramLabelFont] at (144,139) {\DiagramHardwareLegendLabel};
+\node[dbox,draw=Accent!65,text width=36mm,minimum height=23mm] (hw-vector) at (24,119) {\DiagramHardwareVectorLabel};
+\node[dbox,draw=Brand!55,fill=Brand!7,text width=38mm,minimum height=23mm] (hw-cpu) at (75,119) {\DiagramHardwareCpuLabel};
+\node[dbox,draw=Accent!65,text width=36mm,minimum height=23mm] (hw-npu) at (126,119) {\DiagramHardwareNpuLabel};
+\draw[control] (hw-vector.east)--node[above=1mm,edgelabel] {\DiagramHardwareVectorEdge}(hw-cpu.west);
+\draw[control] (hw-cpu.east)--node[above=1mm,edgelabel] {\DiagramHardwareRoccEdge}(hw-npu.west);
+% CPU/vector cached access is separate from Gemmini's DMA client.
+\node[dbox,text width=40mm,minimum height=13mm] (hw-cache) at (75,96) {\DiagramHardwareCacheLabel};
+\draw[data] (hw-cpu.south)--(hw-cache.north);
+\draw[data] (hw-vector.south)--(24,96)--node[above=.8mm,edgelabel] {\DiagramHardwareMemoryEdge}(hw-cache.west);
+\node[dbox,draw=Accent!60,fill=Accent!8,text width=132mm,minimum height=10mm]
+ (hw-fabric) at (75,81) {\DiagramHardwareFabricLabel};
+\draw[data] (hw-cache.south)--(hw-fabric.north);
+\draw[data] (hw-npu.south)--node[right=1mm,edgelabel] {\DiagramHardwareDmaEdge}(126,86);
+\node[dbox,text width=58mm,minimum height=20mm] (hw-dram) at (43,58) {\DiagramHardwareDramControllerLabel};
+\node[dbox,text width=28mm,minimum height=20mm] (hw-rom) at (94,58) {\DiagramHardwareRomLabel};
+\node[dbox,text width=22mm,minimum height=20mm] (hw-uart) at (128,58) {\DiagramHardwareUartLabel};
+\draw[data] (43,76)--(hw-dram.north);
+\draw[data] (94,76)--(hw-rom.north);
+\draw[data] (128,76)--(hw-uart.north);
+\node[dbox,draw=Brand!35,text width=58mm,minimum height=19mm] (hw-ddr) at (43,29) {\DiagramHardwareDdrLabel};
+\node[dbox,draw=Brand!35,text width=34mm,minimum height=19mm] (hw-bridge) at (128,29) {\DiagramHardwareBridgeLabel};
+\draw[data] (hw-dram.south)--node[right=1mm,font=\DiagramLabelFont,text=Muted,
+ fill=white,inner sep=.3mm]{\DiagramHardwareDdrEdge}(hw-ddr.north);
+\draw[data] (hw-uart.south)--node[left=1mm,font=\DiagramLabelFont,text=Muted,
+ fill=white,inner sep=.3mm]{\DiagramHardwarePeripheralEdge}(hw-bridge.north);
+% Bring-up constraints remain a compact note, not an extra microarchitecture.
+\node[anchor=north west,align=left,text width=142mm,font=\DiagramLabelFont,text=Brand]
+ at (4,15) {\DiagramHardwareBootLabel};
+\node[anchor=north west,align=left,text width=142mm,font=\DiagramLabelFont,text=Muted]
+ at (4,7) {\DiagramHardwareConstraintLabel};
+\end{tikzpicture}

@@ -1,0 +1,44 @@
+% Editable architecture-diagram labels; technical values reuse existing config macros.
+\newcommand{\DiagramNodeFont}{\sffamily\fontsize{9.5pt}{11.5pt}\selectfont}
+\newcommand{\DiagramTitleFont}{\sffamily\bfseries\fontsize{10pt}{12pt}\selectfont}
+\newcommand{\DiagramLabelFont}{\sffamily\fontsize{8.5pt}{10pt}\selectfont}
+\newcommand{\SoftwareArchitectureCaption}{软件架构与模型部署数据流（拟设计）}
+\newcommand{\HardwareArchitectureCaption}{FPGA 计算系统与板载外围接口（拟设计）}
+\newcommand{\DiagramSoftwareHostTitle}{主机端 · 准备、转换与部署}
+\newcommand{\DiagramSoftwareBoardTitle}{板端}
+\newcommand{\DiagramSoftwareModelLabel}{\textbf{模型与权重}\\预处理 · 量化\\独立参考结果}
+\newcommand{\DiagramSoftwareConvertLabel}{\textbf{受限模型转换}\\形状与算子检查\\后端选择 · 静态计划}
+\newcommand{\DiagramSoftwarePackageLabel}{\textbf{部署包}\\程序 · 权重\\清单与版本}
+\newcommand{\DiagramSoftwareDeployLabel}{部署}
+\newcommand{\DiagramSoftwareInputLabel}{\textbf{输入适配}\\UART 测试张量\\静态图像回放}
+\newcommand{\DiagramSoftwareRuntimeLabel}{\textbf{推理运行时}\\执行计划 · 缓冲区\\顺序调用 C 算子}
+\newcommand{\DiagramSoftwareResultLabel}{\textbf{结果与记录}\\类别 · 样本标识\\逐层结果 · 回传}
+\newcommand{\DiagramSoftwareScalarLabel}{\textbf{标量后端}\\\ProcessorCore{}\\控制与已注册算子}
+\newcommand{\DiagramSoftwareVectorLabel}{\textbf{向量后端}\\\VectorUnit{} RVV\\逐元素 · 数据整理}
+\newcommand{\DiagramSoftwareNpuLabel}{\textbf{矩阵后端}\\\AcceleratorName{}\\矩阵乘 · 受控搬运}
+\newcommand{\DiagramSoftwareSelectLabel}{按算子选择}
+\newcommand{\DiagramSoftwarePlatformLabel}{\textbf{平台适配层}\\I/O · 内存 · 上下文 · NPU 受控访问\\\RealTimeSystem{} 镜像\quad 或 \quad\LinuxDistribution{} 镜像（重启切换）}
+\newcommand{\DiagramSoftwareInputExtensionLabel}{后续视觉／传感\\驱动与预处理}
+\newcommand{\DiagramSoftwareOutputExtensionLabel}{后续数据中心\\通信接口适配}
+\newcommand{\DiagramSoftwarePrimaryLegend}{首期设计路径}
+\newcommand{\DiagramSoftwareExtensionLegend}{后续扩展接口（待适配）}
+\newcommand{\DiagramHardwareBoundaryTitle}{FPGA 内部 · \FPGAModel{}}
+\newcommand{\DiagramHardwareLegendLabel}{\textcolor{Brand}{指令／响应}\quad\textcolor{Accent}{数据访问}}
+\newcommand{\DiagramHardwareCpuLabel}{\textbf{\ProcessorCore{} CPU}\\单核 · MMU · FPU\\控制与调度}
+\newcommand{\DiagramHardwareVectorLabel}{\textbf{\VectorUnit{} 向量单元}\\\VectorConfig{} · VLEN \VectorLength{}\\DLEN \VectorDataWidth{}}
+\newcommand{\DiagramHardwareNpuLabel}{\textbf{\AcceleratorName{} NPU}\\\ModelDataType{} 矩阵阵列\\暂存／累加 · DMA}
+\newcommand{\DiagramHardwareCacheLabel}{\ProcessorCore{}／\VectorUnit{}\\缓存与地址翻译接口}
+\newcommand{\DiagramHardwareFabricLabel}{TileLink 一致性互连／统一地址映射}
+\newcommand{\DiagramHardwareDramControllerLabel}{\textbf{\MemoryController{} 控制器}\\K7DDRPHY · DDR3 接口\\初始化与训练控制}
+\newcommand{\DiagramHardwareRomLabel}{\textbf{ROM/BRAM}\\片上引导\\代码与栈}
+\newcommand{\DiagramHardwareUartLabel}{\textbf{UART}\\镜像加载\\结果回传}
+\newcommand{\DiagramHardwareDdrLabel}{\textbf{板上 DDR3（FPGA 外）}\\\MemoryChipCount{} $\times$ \MemoryPart{}\\\MemoryBusWidth{} bit · \MemoryCapacity{} 标称}
+\newcommand{\DiagramHardwareBridgeLabel}{\textbf{\SerialBridge{}}\\USB 转 UART\\上位机串口链路}
+\newcommand{\DiagramHardwareVectorEdge}{RVV}
+\newcommand{\DiagramHardwareRoccEdge}{RoCC}
+\newcommand{\DiagramHardwareMemoryEdge}{访存}
+\newcommand{\DiagramHardwareDmaEdge}{DMA}
+\newcommand{\DiagramHardwareDdrEdge}{DDR3}
+\newcommand{\DiagramHardwarePeripheralEdge}{UART}
+\newcommand{\DiagramHardwareBootLabel}{\textbf{启动：}片上引导 $\rightarrow$ DDR 训练／测试 $\rightarrow$ UART 加载 $\rightarrow$ \BootFirmware{} $\rightarrow$ 目标系统}
+\newcommand{\DiagramHardwareConstraintLabel}{训练／测试使用不受普通 ready 门控的专用路径；两种系统通过重启切换。}
