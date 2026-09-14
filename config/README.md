@@ -131,6 +131,10 @@
 | `\DataFlowDescription` | [14](<functions.tex#L14>) |
 | `\FunctionBoundary` | [15](<functions.tex#L15>) |
 | `\DemonstrationFunction` | [16](<functions.tex#L16>) |
+| `\DrivingExtensionDirection` | [19](<functions.tex#L19>) |
+| `\DrivingPilotTask` | [20](<functions.tex#L20>) |
+| `\DrivingPilotStates` | [21](<functions.tex#L21>) |
+| `\DrivingPilotOutput` | [22](<functions.tex#L22>) |
 
 ## hardware.tex
 
@@ -507,6 +511,9 @@
 | `\SourceRulesName` | [40](<sources.tex#L40>) |
 | `\SourceBoardName` | [41](<sources.tex#L41>) |
 | `\SourceBoardPinName` | [42](<sources.tex#L42>) |
+| `\SourceCabinAIName` | [45](<sources.tex#L45>) |
+| `\SourceCabinAIURL` | [46](<sources.tex#L46>) |
+| `\SourceCabinAIAccessDate` | [47](<sources.tex#L47>) |
 
 ## versions.tex
 

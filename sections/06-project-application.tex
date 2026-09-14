@@ -1,9 +1,9 @@
 \section{项目应用情况}
 \subsection{落地应用}
 
-项目当前处于方案设计阶段，具体竞赛演示场景尚未最终确定，尚无已落地应用或企业试用记录。首期应用定位为面向嵌入式推理开发的FPGA原型：使用现有试验箱，验证模型从电脑端准备、转换，到板上执行与结果回传的完整过程。应用扩展按“基础推理、静态视觉、感知接入”的顺序推进。\cite{technicalreport}
+项目处于方案设计阶段，首期以现有试验箱验证模型从主机准备、转换到板端推理及结果回传的完整过程，按“基础推理、静态视觉、感知接入”推进。具体演示场景待确定，尚无落地应用或企业试用记录。\cite{technicalreport}
 
-首个可行性算例为\(\ModelImageHeight\times\ModelImageWidth\)灰度数字图像，采用\ModelInputSize{}$\rightarrow$\ModelHiddenSize{}$\rightarrow$\ModelOutputSize{}的小型\ModelFamily{}。电脑端准备来源清晰的训练权重、固定预处理、校准样本、独立测试集及逐层参考结果，板端仅执行推理。最终类别由\ModelOutputOperation{}确定；未经过概率变换的分数按分类分数展示。该算例用于检验计算系统的连贯性，不作为最终行业应用的定稿。
+首个算例采用\(\ModelImageHeight\times\ModelImageWidth\)灰度数字图像和\AIModel{}。主机准备来源清晰的权重、固定预处理、校准样本、独立测试集与逐层参考；板端仅执行推理，由\ModelOutputOperation{}输出类别，原始分数不作概率解释。算例用于贯通系统，行业模型另行适配。
 
 {\small\renewcommand{\arraystretch}{\CompactTableStretch}
 \noindent\begin{tabularx}{\linewidth}{@{}P{.19\linewidth}Y Y@{}}
@@ -16,7 +16,9 @@
 \bottomrule
 \end{tabularx}}
 
-原型的预期价值是为开发者提供从算子描述到执行验证的可检查路径，并展示不同计算后端的适用范围。实际性能、开发工作量和部署成本将通过工程验证记录，形成后续评价依据。题面中的移动数据中心尚未指定平台和接口，方案保留结果输出适配层，具体接入随需求确认后展开。
+原型面向算子开发、后端比较与执行验证，性能、开发工作量及部署成本随工程测试记录。移动数据中心的平台与接口待确认，通过结果输出适配层接入。
+
+\par\textbf{\DrivingExtensionDirection{}展望。}基础推理与视觉接口稳定后，拟以\DrivingPilotTask{}为切入点，先通过图像序列回放开展预处理、模型量化及新增算子适配，再接入摄像头，输出\DrivingPilotOutput{}。后续比较不同光照、遮挡和输入频率下的识别效果与推理耗时，形成面向车载感知算法原型验证和教学演示的扩展示例。
 
 \subsection{人机交互流程}
 
@@ -29,4 +31,4 @@
 \item 回传样本标识、分类结果与诊断记录，在电脑端对照参考结果；参数不支持、初始化失败或执行异常时保留错误位置与状态。
 \end{enumerate}
 
-后续静态图像与实时采集均通过输入适配层接入，保持运行时接收张量、输出带标识结果的边界。实时摄像头和传感器驱动分别进行现场采集验证。
+适配层统一张量输入和结果回传，摄像头及传感器驱动分别验证。
