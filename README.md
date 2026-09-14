@@ -1,6 +1,6 @@
 # 嵌入式智能计算系统解决方案
 
-当前版本为 **v0.6 补充指导教师信息**，技术依据为 [TP-0.2 技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
+解决方案已补充团队成员与指导教师信息，技术依据为 [技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。PDF 不显示文档修订编号、稿件状态标签和封面日期；封面突出比赛名称与完整赛题。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
 
 ## 阅读与编译
 
@@ -28,7 +28,7 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 
 | 文件 | 修改内容 |
 |---|---|
-| `config/document.tex` | 文档、赛事、工作名称、版本、企业评价状态 |
+| `config/document.tex` | 文档、赛事、工作名称、企业评价状态 |
 | `config/people.tex` | 负责人、导师学历与任职、研究方向与指导内容、成员履历及照片路径 |
 | `config/hardware.tex` | 板卡、处理器、向量单元、加速器、DDR 与器件资源 |
 | `config/software.tex` | 操作系统、工具链、运行体系及部署方式 |
@@ -40,7 +40,7 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 | `config/versions.tex` | 固定源码提交 |
 | `config/sources.tex` | 参考来源标题与链接 |
 | `config/source-brief.tex` | 企业题面原文，核对来源后才能变更 |
-| `config/appearance.tex` | 纸张、页边距、行距与颜色 |
+| `config/appearance.tex` | 纸张、页边距、行距、颜色与封面字号 |
 | `config/presentation.tex` | 后续讲述提纲的可修改关键词 |
 
 正文调用宏，不在不同章节重复维护同一型号或名称。`ProjectName` 为本版工作名称，可在配置中统一替换；未确认的个人信息仍显示“待补充”。宏索引可运行 `scripts/update-config-index.py` 更新。

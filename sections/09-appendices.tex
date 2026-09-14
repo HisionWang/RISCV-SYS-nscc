@@ -8,18 +8,18 @@
 \midrule
 命题与评审依据 & 题面原文、企业命题组评审要求及校赛通知 & 已归档；作为需求与材料组织依据\\
 格式参考 & \SourceFormatName{} & 仅参考解决方案章节及层级\\
-技术基线 & \SourceTechnicalReportName{}（\TechnicalBaseline{}） & 已形成选型与可行性核查\\
+技术依据 & \SourceTechnicalReportName{} & 已形成选型与可行性核查\\
 板卡资料 & \SourceBoardName{}、\SourceBoardPinName{}及资源清单 & 已归档；供板级适配使用\\
-方案设计 & 本文总体架构、数据流、算子接口和验证路径 & 本版设计稿\\
+方案设计 & 本文总体架构、数据流、算子接口和验证路径 & 系统设计方案\\
 工程与验证 & SoC 配置、BSP、模型资产、算子库与测试日志 & 后续按实施阶段形成\\
 企业意见与成果 & 对接记录、正式评价、个人贡献与成果证明 & 随实际取得的资料补充\\
 \bottomrule
 \end{tabularx}\par}
 
 往年项目策划书用于参考问题讲述和内容组织，其项目数据、成员身份及成果不转入本方案。
-本版按解决方案组织正文，技术依据统一采用\TechnicalBaseline{}；历史选型不作为当前配置输入。
+正文按解决方案组织，技术依据统一采用\SourceTechnicalReportName{}，并与当前系统配置保持一致。
 
-\subsection*{关键版本记录}
+\subsection*{依赖组件与源码依据}
 以下为来源核查基线。工程实施时仍需锁定完整依赖、构建参数与板级约束，
 并使生成的\NpuParameterHeader{}、设备树和软件构建参数与最终硬件配置一致。
 
@@ -49,7 +49,7 @@ TestChipIP & \texttt{\TestChipIPRevision{}}\\
 \setlength{\itemsep}{.35em}
 \bibitem{challenge} \ChallengeCompany{}．\SourceChallengeName{}．赛事命题材料，命题编号\ChallengeIdentifier{}；原文见第二章。
 \bibitem{reviewrules} 大赛评审文件．\SourceRulesName{}．企业命题组评审部分，PDF 第15—16页。
-\bibitem{technicalreport} 团队技术选型资料．\SourceTechnicalReportName{}，\TechnicalBaseline{}，\TechnicalBaselineDate{}．本项目技术资料目录。
+\bibitem{technicalreport} 团队技术选型资料．\SourceTechnicalReportName{}，\TechnicalBaselineDate{}．本项目技术资料目录。
 \bibitem{board} 板卡原始资料．\SourceBoardName{}、\SourceBoardPinName{}．本项目“竞业达板卡资料”目录。
 \bibitem{chipyard} UC Berkeley．\IntegrationFramework{} \IntegrationVersion{}．\href{\SourceChipyardURL}{固定版本仓库与依赖配置}。
 \bibitem{rocket} CHIPS Alliance．\ProcessorCore{} Chip：RocketTile．\href{\SourceRocketURL}{向量、RoCC 与缓存连接源码}。

@@ -23,6 +23,10 @@
 | `\TeamPhotoHeight` | [24](<appearance.tex#L24>) |
 | `\TeamProfileGap` | [25](<appearance.tex#L25>) |
 | `\AdvisorPlaceholderHeight` | [26](<appearance.tex#L26>) |
+| `\CoverCompetitionFontSize` | [29](<appearance.tex#L29>) |
+| `\CoverCompetitionLeading` | [30](<appearance.tex#L30>) |
+| `\CoverChallengeFontSize` | [31](<appearance.tex#L31>) |
+| `\CoverChallengeLeading` | [32](<appearance.tex#L32>) |
 
 ## document.tex
 
@@ -30,32 +34,29 @@
 |---|---|
 | `\PendingValue` | [2](<document.tex#L2>) |
 | `\DocumentTitle` | [5](<document.tex#L5>) |
-| `\DocumentSubtitle` | [6](<document.tex#L6>) |
-| `\DocumentVersion` | [7](<document.tex#L7>) |
-| `\DocumentDate` | [8](<document.tex#L8>) |
-| `\DocumentStatus` | [9](<document.tex#L9>) |
-| `\DocumentAuthor` | [10](<document.tex#L10>) |
-| `\DocumentReviewer` | [11](<document.tex#L11>) |
-| `\CompetitionName` | [14](<document.tex#L14>) |
-| `\CompetitionTrack` | [15](<document.tex#L15>) |
-| `\CompetitionGroup` | [16](<document.tex#L16>) |
-| `\CompetitionDirection` | [17](<document.tex#L17>) |
-| `\SchoolName` | [18](<document.tex#L18>) |
-| `\CollegeName` | [19](<document.tex#L19>) |
-| `\ChallengeTitleLineOne` | [21](<document.tex#L21>) |
-| `\ChallengeTitleLineTwo` | [22](<document.tex#L22>) |
-| `\ChallengeTitle` | [23](<document.tex#L23>) |
-| `\ChallengeCompany` | [24](<document.tex#L24>) |
-| `\ChallengeIdentifier` | [25](<document.tex#L25>) |
-| `\ProjectName` | [26](<document.tex#L26>) |
-| `\ProjectSubtitle` | [27](<document.tex#L27>) |
-| `\ApplicationScenario` | [28](<document.tex#L28>) |
-| `\SubmissionStage` | [29](<document.tex#L29>) |
-| `\SubmissionDeadline` | [30](<document.tex#L30>) |
-| `\TechnicalBaseline` | [32](<document.tex#L32>) |
-| `\TechnicalBaselineDate` | [34](<document.tex#L34>) |
-| `\CompanyFeedback` | [36](<document.tex#L36>) |
-| `\ProjectKeywords` | [38](<document.tex#L38>) |
+| `\DocumentAuthor` | [6](<document.tex#L6>) |
+| `\DocumentReviewer` | [7](<document.tex#L7>) |
+| `\CompetitionName` | [10](<document.tex#L10>) |
+| `\CompetitionTrack` | [11](<document.tex#L11>) |
+| `\CompetitionGroup` | [12](<document.tex#L12>) |
+| `\CompetitionDirection` | [13](<document.tex#L13>) |
+| `\SchoolName` | [14](<document.tex#L14>) |
+| `\CollegeName` | [15](<document.tex#L15>) |
+| `\ChallengeTitleSoftwarePart` | [17](<document.tex#L17>) |
+| `\ChallengeTitleArchitecturePart` | [18](<document.tex#L18>) |
+| `\ChallengeTitleLineOne` | [19](<document.tex#L19>) |
+| `\ChallengeTitleLineTwo` | [20](<document.tex#L20>) |
+| `\ChallengeTitle` | [21](<document.tex#L21>) |
+| `\ChallengeCompany` | [22](<document.tex#L22>) |
+| `\ChallengeIdentifier` | [23](<document.tex#L23>) |
+| `\ProjectName` | [24](<document.tex#L24>) |
+| `\ProjectSubtitle` | [25](<document.tex#L25>) |
+| `\ApplicationScenario` | [26](<document.tex#L26>) |
+| `\SubmissionStage` | [27](<document.tex#L27>) |
+| `\SubmissionDeadline` | [28](<document.tex#L28>) |
+| `\TechnicalBaselineDate` | [30](<document.tex#L30>) |
+| `\CompanyFeedback` | [32](<document.tex#L32>) |
+| `\ProjectKeywords` | [34](<document.tex#L34>) |
 
 ## functions.tex
 
