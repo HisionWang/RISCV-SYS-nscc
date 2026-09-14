@@ -108,8 +108,10 @@
     \vspace{0pt}
     {\normalsize\sffamily #1}\quad{\small\color{Muted}#2}\par
     {\small\linespread{1.12}\selectfont\setlength{\parskip}{1mm}
-      职称：\AdvisorTitle\par
-      所在单位：\AdvisorDepartment\par
+      \AdvisorDepartment{} · \AdvisorQualification\par
+      \AdvisorTitle\par
+      学术经历：\AdvisorEducation\par
+      学术任职：\AdvisorAcademicRoles{}；\AdvisorTeamRole{}。\par
       研究方向：\AdvisorResearchAreas\par
       指导分工：\AdvisorGuidance\par}
   \end{minipage}\par

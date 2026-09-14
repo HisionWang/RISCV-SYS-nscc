@@ -1,6 +1,6 @@
 # 嵌入式智能计算系统解决方案
 
-当前版本为 **v0.5 补充团队成员信息**，技术依据为 [TP-0.2 技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
+当前版本为 **v0.6 补充指导教师信息**，技术依据为 [TP-0.2 技术选型与可行性报告](../technical-planning/06-current-selection-feasibility-report.md)。用户已授权依据该基线填写方案；本稿描述研究设计，尚无工程实测结果。
 
 ## 阅读与编译
 
@@ -29,7 +29,7 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 | 文件 | 修改内容 |
 |---|---|
 | `config/document.tex` | 文档、赛事、工作名称、版本、企业评价状态 |
-| `config/people.tex` | 负责人、导师预留字段、成员履历与照片路径 |
+| `config/people.tex` | 负责人、导师学历与任职、研究方向与指导内容、成员履历及照片路径 |
 | `config/hardware.tex` | 板卡、处理器、向量单元、加速器、DDR 与器件资源 |
 | `config/software.tex` | 操作系统、工具链、运行体系及部署方式 |
 | `config/models.tex` | 首个验证模型、形状、类型、量化及结构核算 |
@@ -47,7 +47,7 @@ v0.1、v0.2 排版结构分别保存在 `archive/layout-v0.1/`、`archive/layout
 
 ## 后续修订
 
-1. 在 config/people.tex 审阅成员履历与专业名称，补充导师职称、研究方向、指导分工及照片。
+1. 在 config/people.tex 审阅成员履历、专业名称及导师资料，补充剩余个人信息。
 2. 审阅本版系统讲述与图表，按反馈修改对应配置及章节。
 3. 后续工程结果形成后，补充模型来源、资源、时序、数值测试及企业反馈；本轮不填造实测数据。
 4. 文书可以领先实现多个版本；每次变更记录其技术基线，接口和实际配置同步复核。
